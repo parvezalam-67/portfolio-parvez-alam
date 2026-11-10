@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parvez Alam Portfolio</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200..800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0B0B0D}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid #F2F0EE;outline-offset:4px}
+.nav-link{color:#9A969A;transition:color .2s}
+.nav-link:hover{color:#F2F0EE}
+.nav-link.active{color:#F2F0EE}
+.btn-primary{transition:background .2s,transform .2s}
+.btn-primary:hover{background:#FFFFFF;transform:translateY(-2px)}
+.btn-ghost{transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:#F2F0EE;color:#FFFFFF}
+.contact-link{transition:color .2s}
+.contact-link:hover{color:var(--accent)}
+nav .nav-link{position:relative}
+nav .nav-link::after{content:'';position:absolute;left:0;right:0;bottom:9px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+nav .nav-link:hover::after,nav .nav-link:focus-visible::after,nav .nav-link.active::after{transform:scaleX(1)}
+nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1)}
+.btn-primary svg,.nav-link svg{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.btn-primary:hover svg,.nav-link:hover svg{transform:translate(3px,-3px)}
+.name-a,.name-b{transition:font-weight .6s cubic-bezier(.2,.7,.2,1)}
+.name-a:hover{font-weight:200!important}
+.name-b:hover{font-weight:800!important}
+.photo-wrap .br{transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1)}
+.photo-wrap:hover .br{width:56px!important;height:56px!important}
+.photo-wrap img{filter:saturate(.85);transition:filter .5s}
+.photo-wrap:hover img{filter:none}
+.tile{transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s,background .3s}
+.tile:hover{transform:translateY(-6px);border-color:#5A5A62!important;background:#16161A!important}
+.tile-icon{transition:background .3s,color .3s}
+.tile:hover .tile-icon{background:#F2F0EE!important;color:#0B0B0D!important}
+.ph{transition:border-color .3s,color .3s,background .3s}
+.ph:hover{border-color:var(--accent)!important;color:#F2F0EE!important;background:#16161A!important}
+.xp h3{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.xp:hover h3{transform:translateX(8px)}
+.ex span{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.ex:hover span:last-child{transform:translateX(14px)}
+.flt{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;box-sizing:border-box;border:1px solid #3A3A40;color:#C9C5C8;font-size:14px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.chip:hover{border-color:#F2F0EE;color:#F2F0EE}
+.flt:checked+.chip{background:#F2F0EE;color:#0B0B0D;border-color:#F2F0EE}
+.flt:focus-visible+.chip{outline:2px solid #F2F0EE;outline-offset:3px}
+#work:has(#f-ads:checked) .work-grid figure:not(:has([data-cat="ads"])),
+#work:has(#f-social:checked) .work-grid figure:not(:has([data-cat="social"])),
+#work:has(#f-motion:checked) .work-grid figure:not(:has([data-cat="motion"])),
+#work:has(#f-video:checked) .work-grid figure:not(:has([data-cat="video"])),
+#work:has(#f-logo:checked) .work-grid figure:not(:has([data-cat="logo"])),
+#work:has(#f-print:checked) .work-grid figure:not(:has([data-cat="print"])){display:none}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.work-grid figure{animation:pop .45s cubic-bezier(.2,.7,.2,1) both}
+@media (prefers-reduced-motion:reduce){.work-grid figure{animation:none}}
+@keyframes reveal{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){main>section:not(:first-child)>div{animation:reveal linear both;animation-timeline:view();animation-range:entry 0% entry 30%}}}
+.rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.rise-2{animation:rise .9s .12s cubic-bezier(.2,.7,.2,1) both}
+.rise-3{animation:rise .9s .24s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rise,.rise-2,.rise-3{animation:none}}
+</style>
+</helmet>
+
+<div style="--accent: {{accent}}; position: relative; overflow: hidden; background: #0B0B0D; color: #F2F0EE; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased">
+
+  <!-- NAV -->
+  <header id="top" style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 0; box-sizing: border-box">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
+      <a href="#top" style="font-size: 15px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; min-height: 44px; display: flex; align-items: center">Parvez Alam</a>
+      <nav aria-label="Primary" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; font-size: 14px">
+        <a class="nav-link" href="#about" style="min-height: 44px; display: flex; align-items: center">About</a>
+        <a class="nav-link" href="#experience" style="min-height: 44px; display: flex; align-items: center">Experience</a>
+        <a class="nav-link" href="#skills" style="min-height: 44px; display: flex; align-items: center">Skills</a>
+        <a class="nav-link" href="#work" style="min-height: 44px; display: flex; align-items: center">Work</a>
+        <a class="nav-link" href="#contact" style="min-height: 44px; display: flex; align-items: center">Contact</a>
+      </nav>
+    </div>
+    <div style="margin-top: 12px; border-top: 1px solid #2A2A2F; padding-top: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A">
+      <span>visual communication</span>
+      <span>creative / visual / motion / ai</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section onMouseMove="{{ onMove }}" onMouseLeave="{{ onLeave }}" style="position: relative; overflow: hidden">
+      <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(#2E2E34 1.3px, transparent 1.7px); background-size: 28px 28px; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent)"></div>
+      <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: {{glow}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
+      <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(var(--accent) 1.6px, transparent 2.2px); background-size: 28px 28px; -webkit-mask-image: {{spotMask}}; mask-image: {{spotMask}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
+      <div style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px 24px 112px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 56px 72px">
+      <div style="flex: 1 1 520px; min-width: 0">
+        <p class="rise" style="margin: 0 0 28px; font-size: 13px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent)">Graphic Designer / Video Editor</p>
+        <h1 class="rise-2" style="margin: 0; font-size: clamp(64px, 10vw, 136px); line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase">
+          <span class="name-a" style="display: block; width: fit-content; font-weight: 800">Parvez</span>
+          <span class="name-b" style="display: block; width: fit-content; font-weight: 200">Alam</span>
+        </h1>
+        <p class="rise-3" style="margin: 36px 0 0; max-width: 560px; font-size: 19px; line-height: 1.65; color: #C9C5C8; text-wrap: pretty">Creative professional in video editing and multimedia design, blending creativity with technical precision to tell stories that actually stick with people.</p>
+        <div class="rise-3" style="margin-top: 40px; display: flex; flex-wrap: wrap; gap: 14px">
+          <a class="btn-primary" href="https://www.behance.net/parvezalam_" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 28px; box-sizing: border-box; background: #F2F0EE; color: #0B0B0D; font-size: 15px; font-weight: 500">
+            View Behance portfolio
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+          </a>
+          <a class="btn-ghost" href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; box-sizing: border-box; border: 1px solid #3A3A40; color: #F2F0EE; font-size: 15px; font-weight: 500">Get in touch</a>
+        </div>
+        <p class="rise-3" style="margin: 44px 0 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A">Now at Doin.Tech · Dhaka, Bangladesh</p>
+      </div>
+
+      <div class="rise-2 photo-wrap" style="flex: 0 1 400px; min-width: 0; width: 100%; max-width: 400px; margin: 0 auto; position: relative">
+        <div style="position: relative; padding: 10px; border: 1px solid #2A2A2F; background: #111114">
+          <img src="./assets/c4c9a256268a18455e909baabe97f86b.jpg" alt="Portrait of Parvez Alam" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 12%">
+        </div>
+        <div class="br" aria-hidden="true" style="position: absolute; top: -2px; right: -2px; width: 28px; height: 28px; border-top: 3px solid var(--accent); border-right: 3px solid var(--accent)"></div>
+        <div class="br" aria-hidden="true" style="position: absolute; bottom: -2px; left: -2px; width: 28px; height: 28px; border-bottom: 3px solid var(--accent); border-left: 3px solid var(--accent)"></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="border-top: 1px solid #2A2A2F">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+        <div style="flex: 1 1 260px; min-width: 0">
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">01 — About</p>
+        </div>
+        <div style="flex: 3 1 480px; min-width: 0">
+          <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance">A creative professional who loves <strong style="font-weight: 700">video editing</strong> and <strong style="font-weight: 700">multimedia design</strong>.</h2>
+          <p style="margin: 32px 0 0; max-width: 680px; font-size: 18px; line-height: 1.75; color: #C9C5C8; text-wrap: pretty">I work with Adobe Photoshop, Illustrator, Premiere Pro, After Effects and Blender to bring ideas to life, and I’ve recently added generative AI to my creative toolkit, using it to push boundaries and speed up my workflow. I’m all about blending creativity with technical precision to tell stories that actually stick with people.</p>
+
+          <div style="margin-top: 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 40px 48px">
+            <div>
+              <h3 style="margin: 0 0 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Education</h3>
+              <p style="margin: 0; font-size: 16px; font-weight: 500">Higher Secondary Certificate</p>
+              <p style="margin: 2px 0 0; font-size: 15px; color: #9A969A">2019 · Chowmuhani Govt. S.A College, Noakhali</p>
+              <p style="margin: 20px 0 0; font-size: 16px; font-weight: 500">Secondary School Certificate</p>
+              <p style="margin: 2px 0 0; font-size: 15px; color: #9A969A">2017 · Abirpara Dakhil Madrasha, Noakhali</p>
+            </div>
+            <div>
+              <h3 style="margin: 0 0 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Languages</h3>
+              <p style="margin: 0; font-size: 16px; font-weight: 500">English</p>
+              <p style="margin: 2px 0 0; font-size: 15px; color: #9A969A">Fluent, spoken and written (IELTS 6.00)</p>
+              <p style="margin: 20px 0 0; font-size: 16px; font-weight: 500">Bangla</p>
+              <p style="margin: 2px 0 0; font-size: 15px; color: #9A969A">Mother tongue</p>
+            </div>
+            <div>
+              <h3 style="margin: 0 0 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Interests</h3>
+              <p style="margin: 0; font-size: 16px; font-weight: 500">Traveling</p>
+              <p style="margin: 8px 0 0; font-size: 16px; font-weight: 500">Football</p>
+              <p style="margin: 8px 0 0; font-size: 16px; font-weight: 500">Acting</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" style="border-top: 1px solid #2A2A2F">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+        <div style="flex: 1 1 260px; min-width: 0">
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">02 — Experience</p>
+        </div>
+        <div style="flex: 3 1 480px; min-width: 0">
+          <h2 style="margin: 0 0 56px; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em">Work <strong style="font-weight: 700">experience</strong></h2>
+
+          <article class="xp" style="padding: 32px 0; border-top: 1px solid #2A2A2F; display: flex; flex-wrap: wrap; gap: 12px 40px">
+            <p style="flex: 1 1 180px; margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.04em; color: #9A969A">April 2025 – Present<br>Dhaka</p>
+            <div style="flex: 3 1 340px; min-width: 0">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.01em; text-wrap: balance"><span style="color: var(--accent)">Doin.Tech</span> — Graphic Designer &amp; Video Editor</h3>
+              <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: #B4B0B3; text-wrap: pretty">Designing digital ads and social media creatives and editing videos, from concept to final delivery. Working closely with the team to keep every piece on brand and on deadline.</p>
+            </div>
+          </article>
+
+          <article class="xp" style="padding: 32px 0; border-top: 1px solid #2A2A2F; display: flex; flex-wrap: wrap; gap: 12px 40px">
+            <p style="flex: 1 1 180px; margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.04em; color: #9A969A">June 2023 – March 2025<br>Dhaka</p>
+            <div style="flex: 3 1 340px; min-width: 0">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.01em; text-wrap: balance"><span style="color: var(--accent)">Strivenith Ventures Ltd</span> — Graphic Designer &amp; Video Editor</h3>
+              <p style="margin: 6px 0 0; font-size: 14px; color: #9A969A">Formerly CSM Bangladesh</p>
+              <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: #B4B0B3; text-wrap: pretty">Edited reels and explainer videos. Created digital ads, social media creatives and print materials for client campaigns, collaborating with the creative team to keep branding consistent.</p>
+            </div>
+          </article>
+
+          <article class="xp" style="padding: 32px 0; border-top: 1px solid #2A2A2F; display: flex; flex-wrap: wrap; gap: 12px 40px">
+            <p style="flex: 1 1 180px; margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.04em; color: #9A969A">July – October 2022<br>Dhaka</p>
+            <div style="flex: 3 1 340px; min-width: 0">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.01em; text-wrap: balance"><span style="color: var(--accent)">Nohor Multimedia</span> — Video Editor</h3>
+              <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: #B4B0B3; text-wrap: pretty">Edited documentary and podcast videos and added motion graphics using Premiere Pro and After Effects.</p>
+            </div>
+          </article>
+
+          <article class="xp" style="padding: 32px 0; border-top: 1px solid #2A2A2F; border-bottom: 1px solid #2A2A2F; display: flex; flex-wrap: wrap; gap: 12px 40px">
+            <p style="flex: 1 1 180px; margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.04em; color: #9A969A">June 2019 – 2026<br>Noakhali</p>
+            <div style="flex: 3 1 340px; min-width: 0">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.01em; text-wrap: balance"><span style="color: var(--accent)">Pranky Boys</span> — Assistant Director / Actor</h3>
+              <p style="margin: 6px 0 0; font-size: 14px; color: #9A969A">Volunteer</p>
+              <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: #B4B0B3; text-wrap: pretty">Joined as an actor, then grew into video editor and assistant director. Now stay connected as an advisor to the team on content and production.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" style="border-top: 1px solid #2A2A2F">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+        <div style="flex: 1 1 260px; min-width: 0">
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">03 — Skills</p>
+        </div>
+        <div style="flex: 3 1 480px; min-width: 0">
+          <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em">The <strong style="font-weight: 700">toolkit</strong></h2>
+        </div>
+
+        <div style="flex: 1 1 100%; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 16px">
+            <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
+              <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F0EE">Ps</div>
+              <div>
+                <p style="margin: 0; font-size: 16px; font-weight: 500">Adobe Photoshop</p>              </div>
+            </div>
+            <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
+              <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F0EE">Ai</div>
+              <div>
+                <p style="margin: 0; font-size: 16px; font-weight: 500">Adobe Illustrator</p>              </div>
+            </div>
+            <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
+              <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F0EE">Pr</div>
+              <div>
+                <p style="margin: 0; font-size: 16px; font-weight: 500">Adobe Premiere Pro</p>              </div>
+            </div>
+            <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
+              <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F0EE">Ae</div>
+              <div>
+                <p style="margin: 0; font-size: 16px; font-weight: 500">Adobe After Effects</p>              </div>
+            </div>
+            <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
+              <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #F2F0EE">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4l1.8 5.2L17 11l-5.2 1.8L10 18l-1.8-5.2L3 11l5.2-1.8z"></path><path d="M18 3v4M16 5h4"></path><path d="M18.5 15v4M16.5 17h4"></path></svg>
+              </div>
+              <div>
+                <p style="margin: 0; font-size: 16px; font-weight: 500">Generative AI</p>              </div>
+            </div>
+            <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
+              <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F0EE">Fg</div>
+              <div>
+                <p style="margin: 0; font-size: 16px; font-weight: 500">Figma</p>              </div>
+            </div>
+            <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
+              <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F0EE">Bl</div>
+              <div>
+                <p style="margin: 0; font-size: 16px; font-weight: 500">Blender</p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section id="work" style="border-top: 1px solid #2A2A2F">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box">
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px">
+          <div style="flex: 1 1 420px; min-width: 0">
+            <p style="margin: 0 0 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">04 — Work</p>
+            <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em">Selected <strong style="font-weight: 700">work</strong></h2>
+          </div>
+          <a class="nav-link" href="https://www.behance.net/parvezalam_" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; border-bottom: 1px solid #3A3A40">
+            All projects on Behance
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+          </a>
+        </div>
+
+        <div role="radiogroup" aria-label="Filter work by category" style="position: relative; margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px">
+          <input class="flt" type="radio" name="work-filter" id="f-all" checked=""><label class="chip" for="f-all">All</label>
+          <input class="flt" type="radio" name="work-filter" id="f-ads"><label class="chip" for="f-ads">Digital Ads</label>
+          <input class="flt" type="radio" name="work-filter" id="f-social"><label class="chip" for="f-social">Social Media</label>
+          <input class="flt" type="radio" name="work-filter" id="f-motion"><label class="chip" for="f-motion">Motion Graphics</label>
+          <input class="flt" type="radio" name="work-filter" id="f-video"><label class="chip" for="f-video">Video Editing</label>
+          <input class="flt" type="radio" name="work-filter" id="f-logo"><label class="chip" for="f-logo">Logo Design</label>
+          <input class="flt" type="radio" name="work-filter" id="f-print"><label class="chip" for="f-print">Print Media</label>
+        </div>
+
+        <div class="work-grid" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 48px 32px">
+
+                    <figure style="margin: 0">
+            <a href="https://www.behance.net/gallery/240069003/Title-Animation" target="_blank" rel="noopener noreferrer" aria-label="Title Animation on Behance (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/dc73739a6dce4ce38e075bb0bd0a4628.jpg" alt="Title Animation cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Title Animation</span>
+              <a class="nav-link" href="https://www.behance.net/gallery/240069003/Title-Animation" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View project on Behance</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="motion">Motion Graphics</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.behance.net/gallery/229823011/Titles-Animation-for-Pranky-Boys-YouTube-Video" target="_blank" rel="noopener noreferrer" aria-label="Titles Animation for Pranky Boys YouTube Video on Behance (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/db0ffbdff18c7f2ada0d64bccef359c5.jpg" alt="Titles Animation for Pranky Boys YouTube Video cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Titles Animation for Pranky Boys YouTube Video</span>
+              <a class="nav-link" href="https://www.behance.net/gallery/229823011/Titles-Animation-for-Pranky-Boys-YouTube-Video" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View project on Behance</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="motion">Motion Graphics</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.behance.net/gallery/208260199/Motion-Graphics-Typography-Video-Editing" target="_blank" rel="noopener noreferrer" aria-label="Motion Graphics Typography - Video Editing on Behance (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/5e93735fca8f39303407d6b39f84e430.jpg" alt="Motion Graphics Typography - Video Editing cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Motion Graphics Typography - Video Editing</span>
+              <a class="nav-link" href="https://www.behance.net/gallery/208260199/Motion-Graphics-Typography-Video-Editing" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View project on Behance</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="motion">Motion Graphics</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.behance.net/gallery/217745405/FIverr-Gig-Thumbnail-Design" target="_blank" rel="noopener noreferrer" aria-label="Fiverr Gig Thumbnail Design on Behance (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/2593e34676a3ec66e9faad85767f0dcf.jpg" alt="Fiverr Gig Thumbnail Design cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Fiverr Gig Thumbnail Design</span>
+              <a class="nav-link" href="https://www.behance.net/gallery/217745405/FIverr-Gig-Thumbnail-Design" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View project on Behance</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Social Media</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.behance.net/gallery/217747773/Social-Media-Post-Design-New-Year-Post-Design" target="_blank" rel="noopener noreferrer" aria-label="Social Media Post Design | New Year Post Design on Behance (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/d9eae4d885b55fb0050770b51bd2f2f0.jpg" alt="Social Media Post Design | New Year Post Design cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Social Media Post Design | New Year Post Design</span>
+              <a class="nav-link" href="https://www.behance.net/gallery/217747773/Social-Media-Post-Design-New-Year-Post-Design" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View project on Behance</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Social Media</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://drive.google.com/drive/folders/1vcPQ0VLaOKlB8zRqCUkdxOB7ET7kYhoX" target="_blank" rel="noopener noreferrer" aria-label="Puzzle project on Google Drive (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/d8066980b05d701d6f293609e5183ca2.jpg" alt="Puzzle project cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Puzzle</span>
+              <a class="nav-link" href="https://drive.google.com/drive/folders/1vcPQ0VLaOKlB8zRqCUkdxOB7ET7kYhoX" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View project on Google Drive</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="motion">Motion Graphics</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.behance.net/gallery/207219941/Social-Media-Post-Design-Car-Post-Design" target="_blank" rel="noopener noreferrer" aria-label="Social Media Post Design - Car Post Design on Behance (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/social-media-car-post.png" alt="Social Media Post Design - Car Post Design cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Social Media Post Design - Car Post Design</span>
+              <a class="nav-link" href="https://www.behance.net/gallery/207219941/Social-Media-Post-Design-Car-Post-Design" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View project on Behance</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Social Media</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/beat-the-clock-ad.jpg" alt="Beat The Clock Flash Sale ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Beat The Clock Flash Sale</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/black-friday-ad.png" alt="Black Friday ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Black Friday Campaign</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/pricing-plan-2026.jpg" alt="Pricing Plan 2026 cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Pricing Plan 2026</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2026</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/awareness-ad.jpg" alt="Awareness ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Brand Awareness Campaign</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/flash-forever-access.jpg" alt="Flash Forever Access ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Flash Forever Access</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/free-vip-gold.jpg" alt="Free VIP Signals Gold ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Free VIP Signals - Gold</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/free-vip-icc.jpg" alt="Free VIP Signals ICC ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Free VIP Signals - ICC</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/free-vip-fxs.jpg" alt="Free VIP Signals FXS ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Free VIP Signals - FXS</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/tired-inconsistency.jpg" alt="Tired of Inconsistency ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Tired of Inconsistency</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/cyber-sale-combo.jpg" alt="Cyber Sale Combo ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Cyber Sale Combo</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/flash-sale-combo.jpg" alt="Flash Sale Combo ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Flash Sale Combo</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/new-year-sale-2026.jpg" alt="New Year Sale 2026 ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">New Year Sale 2026</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2026</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/scalping-blog.webp" alt="Scalping vs Day Trading blog cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Scalping vs Day Trading</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Blog Image · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/christmas-pricing.jpg" alt="Christmas Pricing blog cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Christmas Pricing Plan</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Blog Image · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/top-forex-pairs.jpg" alt="Top 5 Forex Pairs blog cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Top 5 Forex Pairs</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Blog Image · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/indice-vip-plan.jpg" alt="Indice VIP Plan blog cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Indice VIP Plan Expansion</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Blog Image · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/best-indices-provider.jpg" alt="Best Indices Signal Provider cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Best Indices Signal Provider</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Guest Post · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/best-forex-provider.jpg" alt="Best Forex Signal Provider cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Best Forex Signal Provider</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Guest Post · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/affiliate-ssf-tsc.jpg" alt="Affiliate For SSF and TSC cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Affiliate For SSF and TSC</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="social">Guest Post · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/halloween-combo.jpg" alt="Halloween Combo ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Halloween Combo Pack</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/christmas-gold.jpg" alt="Christmas Gold ad cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Christmas Gold Plan</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Digital Ads · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/tsc-protector-banner.jpg" alt="TSC Protector Banner cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"></div>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">TSC Protector Banner</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Web Banner · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/798659482061002" target="_blank" rel="noopener noreferrer" aria-label="Facebook Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/facebook-reel-1-thumbnail.jpg" alt="Facebook Reel #1 thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8.5 5 3.5-5 3.5z"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">One Dish Party Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/798659482061002" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/1548847992438011" target="_blank" rel="noopener noreferrer" aria-label="Facebook Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/facebook-reel-2-thumbnail-v2.jpg" alt="Facebook Reel #2 thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8.5 5 3.5-5 3.5z"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Cox's Bazar Tour Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/1548847992438011" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/1128727838602440" target="_blank" rel="noopener noreferrer" aria-label="Facebook Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/facebook-reel-3-thumbnail.png" alt="Facebook Reel #3 thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8.5 5 3.5-5 3.5z"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Happy 5 Years Anniversary</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/1128727838602440" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/1798309937304744" target="_blank" rel="noopener noreferrer" aria-label="Facebook Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/facebook-reel-4-thumbnail.png" alt="Facebook Reel #4 thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8.5 5 3.5-5 3.5z"></path></svg></span></div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Family Moment</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/1798309937304744" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section id="expertise" style="border-top: 1px solid #2A2A2F">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+        <div style="flex: 1 1 260px; min-width: 0">
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">05 — Expertise</p>
+        </div>
+        <div style="flex: 3 1 480px; min-width: 0">
+          <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance">Areas of <strong style="font-weight: 700">expertise</strong></h2>
+          <p style="margin: 24px 0 0; max-width: 560px; font-size: 18px; line-height: 1.7; color: #C9C5C8; text-wrap: pretty">The disciplines I work in. More of my work is on Behance.</p>
+
+          <ul style="margin: 48px 0 0; padding: 0; list-style: none; border-top: 1px solid #2A2A2F">
+            <li class="ex" style="display: flex; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid #2A2A2F"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--accent)">01</span><span style="font-size: clamp(22px, 3vw, 34px); font-weight: 300; letter-spacing: -0.02em">Digital Ads</span></li>
+            <li class="ex" style="display: flex; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid #2A2A2F"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--accent)">02</span><span style="font-size: clamp(22px, 3vw, 34px); font-weight: 300; letter-spacing: -0.02em">Social Media Creatives</span></li>
+            <li class="ex" style="display: flex; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid #2A2A2F"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--accent)">03</span><span style="font-size: clamp(22px, 3vw, 34px); font-weight: 300; letter-spacing: -0.02em">Motion Graphics</span></li>
+            <li class="ex" style="display: flex; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid #2A2A2F"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--accent)">04</span><span style="font-size: clamp(22px, 3vw, 34px); font-weight: 300; letter-spacing: -0.02em">Video Editing</span></li>
+            <li class="ex" style="display: flex; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid #2A2A2F"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--accent)">05</span><span style="font-size: clamp(22px, 3vw, 34px); font-weight: 300; letter-spacing: -0.02em">Filmmaking</span></li>
+            <li class="ex" style="display: flex; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid #2A2A2F"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--accent)">06</span><span style="font-size: clamp(22px, 3vw, 34px); font-weight: 300; letter-spacing: -0.02em">Logo Design</span></li>
+            <li class="ex" style="display: flex; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid #2A2A2F"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--accent)">07</span><span style="font-size: clamp(22px, 3vw, 34px); font-weight: 300; letter-spacing: -0.02em">Print Media</span></li>
+          </ul>
+
+          <a class="btn-primary" href="https://www.behance.net/parvezalam_" target="_blank" rel="noopener noreferrer" style="margin-top: 48px; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 28px; box-sizing: border-box; background: #F2F0EE; color: #0B0B0D; font-size: 15px; font-weight: 500">
+            See the full portfolio on Behance
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="border-top: 1px solid #2A2A2F">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 112px 24px 96px; box-sizing: border-box">
+        <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">06 — Contact</p>
+        <h2 style="margin: 24px 0 0; max-width: 900px; font-size: clamp(36px, 6vw, 84px); font-weight: 300; line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance">Let’s make something that <strong style="font-weight: 800">sticks</strong>.</h2>
+        <a class="contact-link" href="mailto:parvez.csmbd@gmail.com" style="margin-top: 48px; display: inline-block; font-size: clamp(22px, 3.6vw, 44px); font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere; border-bottom: 2px solid var(--accent); padding-bottom: 6px">parvez.csmbd@gmail.com</a>
+
+        <div style="margin-top: 72px; padding-top: 32px; border-top: 1px solid #2A2A2F; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 36px 48px">
+          <div>
+            <h3 style="margin: 0 0 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Phone</h3>
+            <a class="contact-link" href="tel:+8801823970902" style="font-size: 17px; min-height: 44px; display: inline-flex; align-items: center">+880 1823 970902</a>
+          </div>
+          <div>
+            <h3 style="margin: 0 0 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Behance</h3>
+            <a class="contact-link" href="https://www.behance.net/parvezalam_" target="_blank" rel="noopener noreferrer" style="font-size: 17px; min-height: 44px; display: inline-flex; align-items: center">behance.net/parvezalam_</a>
+          </div>
+          <div>
+            <h3 style="margin: 0 0 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Address</h3>
+            <p style="margin: 0; font-size: 17px; line-height: 1.6">Merul Badd, DIT Project, Road-13, House-26, Dhaka, Bangladesh</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="border-top: 1px solid #2A2A2F">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; font-size: 14px; color: #9A969A">
+      <span>© 2026 Parvez Alam · Graphic Designer / Video Editor</span>
+      <a class="nav-link" href="#top" style="min-height: 44px; display: inline-flex; align-items: center">Back to top</a>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF3D5E","options":["#FF3D5E","#FF6B3D","#3DA9FF","#B6F23D"]},"$preview":{"width":1440,"height":6800}}'>
+class Component extends DCLogic {
+state = { mx: 900, my: 260, on: false };
+renderVals() {
+const accent = this.props.accent ?? '#FF3D5E';
+const mx = this.state.mx;
+const my = this.state.my;
+const on = this.state.on;
+return {
+accent: accent,
+spotOpacity: on ? 1 : 0,
+spotMask: 'radial-gradient(circle 200px at ' + mx + 'px ' + my + 'px, #000 0%, rgba(0,0,0,0) 100%)',
+glow: 'radial-gradient(circle 280px at ' + mx + 'px ' + my + 'px, color-mix(in srgb, ' + accent + ' 13%, transparent), transparent)',
+onMove: (e) => {
+const r = e.currentTarget.getBoundingClientRect();
+const x = Math.round(e.clientX - r.left);
+const y = Math.round(e.clientY - r.top);
+if (this.state.on && Math.abs(x - this.state.mx) + Math.abs(y - this.state.my) < 4) return;
+this.setState({ mx: x, my: y, on: true });
+},
+onLeave: () => { this.setState({ on: false }); }
+};
+}
+}
+</script>
+<script>
+(function() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav .nav-link');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+})();
+</script>
+</body>
+</html>
