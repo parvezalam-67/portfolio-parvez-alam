@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parvez Alam Portfolio</title>
 <script src="./vendor/react.js"></script>
 <script src="./vendor/react-dom.js"></script>
@@ -13,47 +14,57 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200..800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
 <style>
-html{scroll-behavior:smooth}
-body{margin:0;background:#0B0B0D}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#0B0B0D;overflow-x:hidden;width:100%}
+*,*::before,*::after{box-sizing:border-box}
+img,svg,video{max-width:100%}
 a{color:inherit;text-decoration:none}
 a:focus-visible{outline:2px solid #F2F0EE;outline-offset:4px}
 .nav-link{color:#9A969A;transition:color .2s}
-.nav-link:hover{color:#F2F0EE}
 .nav-link.active{color:#F2F0EE}
-.btn-primary{transition:background .2s,transform .2s}
-.btn-primary:hover{background:#FFFFFF;transform:translateY(-2px)}
-.btn-ghost{transition:border-color .2s,color .2s}
-.btn-ghost:hover{border-color:#F2F0EE;color:#FFFFFF}
+.btn-primary{transition:background .2s,transform .2s,opacity .15s}
+.btn-ghost{transition:border-color .2s,color .2s,opacity .15s}
 .contact-link{transition:color .2s}
-.contact-link:hover{color:var(--accent)}
 nav .nav-link{position:relative}
-nav .nav-link::after{content:'';position:absolute;left:0;right:0;bottom:9px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
-nav .nav-link:hover::after,nav .nav-link:focus-visible::after,nav .nav-link.active::after{transform:scaleX(1)}
-nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1)}
+nav .nav-link::after{content:'';position:absolute;left:0;right:0;bottom:6px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+nav .nav-link.active::after{transform:scaleX(1)}
 .btn-primary svg,.nav-link svg{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
-.btn-primary:hover svg,.nav-link:hover svg{transform:translate(3px,-3px)}
 .name-a,.name-b{transition:font-weight .6s cubic-bezier(.2,.7,.2,1)}
-.name-a:hover{font-weight:200!important}
-.name-b:hover{font-weight:800!important}
 .photo-wrap .br{transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1)}
-.photo-wrap:hover .br{width:56px!important;height:56px!important}
 .photo-wrap img{filter:saturate(.85);transition:filter .5s}
-.photo-wrap:hover img{filter:none}
 .tile{transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s,background .3s}
-.tile:hover{transform:translateY(-6px);border-color:#5A5A62!important;background:#16161A!important}
 .tile-icon{transition:background .3s,color .3s}
-.tile:hover .tile-icon{background:#F2F0EE!important;color:#0B0B0D!important}
 .ph{transition:border-color .3s,color .3s,background .3s}
-.ph:hover{border-color:var(--accent)!important;color:#F2F0EE!important;background:#16161A!important}
 .xp h3{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
-.xp:hover h3{transform:translateX(8px)}
 .ex span{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
-.ex:hover span:last-child{transform:translateX(14px)}
 .flt{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
-.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;box-sizing:border-box;border:1px solid #3A3A40;color:#C9C5C8;font-size:14px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-.chip:hover{border-color:#F2F0EE;color:#F2F0EE}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;box-sizing:border-box;border:1px solid #3A3A40;color:#C9C5C8;font-size:14px;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .2s,color .2s,border-color .2s,transform .15s;-webkit-tap-highlight-color:transparent}
 .flt:checked+.chip{background:#F2F0EE;color:#0B0B0D;border-color:#F2F0EE}
 .flt:focus-visible+.chip{outline:2px solid #F2F0EE;outline-offset:3px}
+
+/* Mobile & Touch Feedback */
+.btn-primary:active,.btn-ghost:active,.chip:active,.tile:active,.nav-link:active,.contact-link:active{transform:scale(.97);opacity:.88}
+
+/* Hover-only interactions restricted to devices with fine pointers */
+@media (hover:hover) and (pointer:fine){
+.nav-link:hover{color:#F2F0EE}
+.btn-primary:hover{background:#FFFFFF;transform:translateY(-2px)}
+.btn-ghost:hover{border-color:#F2F0EE;color:#FFFFFF}
+.contact-link:hover{color:var(--accent)}
+nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1)}
+.btn-primary:hover svg,.nav-link:hover svg{transform:translate(3px,-3px)}
+.name-a:hover{font-weight:200!important}
+.name-b:hover{font-weight:800!important}
+.photo-wrap:hover .br{width:56px!important;height:56px!important}
+.photo-wrap:hover img{filter:none}
+.tile:hover{transform:translateY(-6px);border-color:#5A5A62!important;background:#16161A!important}
+.tile:hover .tile-icon{background:#F2F0EE!important;color:#0B0B0D!important}
+.ph:hover{border-color:var(--accent)!important;color:#F2F0EE!important;background:#16161A!important}
+.xp:hover h3{transform:translateX(8px)}
+.ex:hover span:last-child{transform:translateX(14px)}
+.chip:hover{border-color:#F2F0EE;color:#F2F0EE}
+}
+
 #work:has(#f-ads:checked) .work-grid figure:not(:has([data-cat="ads"])),
 #work:has(#f-social:checked) .work-grid figure:not(:has([data-cat="social"])),
 #work:has(#f-motion:checked) .work-grid figure:not(:has([data-cat="motion"])),
@@ -70,16 +81,59 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 .rise-3{animation:rise .9s .24s cubic-bezier(.2,.7,.2,1) both}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.rise,.rise-2,.rise-3{animation:none}}
+
+/* RESPONSIVE DESIGN SYSTEM */
+@media (max-width:1024px){
+.section-inner{padding:72px 20px!important;gap:36px 48px!important}
+.hero-inner{padding:60px 20px 80px!important;gap:40px 48px!important}
+.contact-inner{padding:80px 20px 72px!important}
+.skills-grid{grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr))!important}
+}
+@media (max-width:640px){
+.site-header{padding:16px 16px 0!important}
+.header-main{gap:12px 16px!important}
+.site-nav{width:100%!important;overflow-x:auto!important;white-space:nowrap!important;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0 16px!important;padding:4px 16px 6px!important;margin:0 -16px!important}
+.site-nav::-webkit-scrollbar{display:none}
+.site-nav .nav-link{flex-shrink:0;font-size:14px;min-height:40px!important}
+.header-subline{font-size:11px!important;gap:4px 12px!important;padding-top:10px!important;margin-top:8px!important}
+.section-inner{padding:56px 16px!important;gap:28px!important}
+.hero-inner{padding:44px 16px 64px!important;gap:36px!important}
+.photo-wrap{max-width:280px!important;margin:0 auto!important}
+.hero-title{font-size:clamp(40px,11vw,76px)!important;line-height:.95!important}
+.hero-desc{font-size:16px!important;line-height:1.6!important;margin-top:24px!important}
+.hero-actions{margin-top:28px!important;flex-direction:column!important;width:100%!important}
+.hero-actions .btn-primary,.hero-actions .btn-ghost{width:100%!important;justify-content:center!important;text-align:center;padding:0 20px!important}
+.about-grid{margin-top:40px!important;grid-template-columns:1fr!important;gap:28px!important}
+.xp{padding:22px 0!important;gap:8px!important}
+.xp h3{font-size:19px!important}
+.xp p{font-size:15px!important}
+.skills-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+.skills-grid .tile{padding:16px 12px!important;gap:16px!important}
+.skills-grid .tile-icon{width:46px!important;height:46px!important;font-size:20px!important;border-radius:10px!important}
+.skills-grid .tile-icon svg{width:22px!important;height:22px!important}
+.skills-grid .tile p{font-size:13.5px!important;line-height:1.35!important}
+.filter-bar{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:8px!important;padding:2px 16px 8px!important;margin:28px -16px 0!important}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-bar .chip{padding:0 16px!important;min-height:42px!important;font-size:13.5px!important}
+.work-grid{grid-template-columns:1fr!important;gap:32px 16px!important;margin-top:24px!important}
+.ex{padding:16px 0!important;gap:16px!important}
+.ex span:last-child{font-size:21px!important}
+.contact-inner{padding:56px 16px 48px!important}
+.contact-inner h2{font-size:clamp(30px,8.5vw,48px)!important}
+.contact-inner .contact-link{font-size:clamp(18px,5.2vw,28px)!important;margin-top:28px!important}
+.contact-meta-grid{margin-top:40px!important;padding-top:24px!important;grid-template-columns:1fr!important;gap:24px!important}
+.footer-inner{padding:24px 16px 36px!important;flex-direction:column!important;align-items:flex-start!important;gap:14px!important}
+}
 </style>
 </helmet>
 
 <div style="--accent: {{accent}}; position: relative; overflow: hidden; background: #0B0B0D; color: #F2F0EE; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased">
 
   <!-- NAV -->
-  <header id="top" style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 0; box-sizing: border-box">
-    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
+  <header id="top" class="site-header" style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 0; box-sizing: border-box">
+    <div class="header-main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
       <a href="#top" style="font-size: 15px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; min-height: 44px; display: flex; align-items: center">Parvez Alam</a>
-      <nav aria-label="Primary" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; font-size: 14px">
+      <nav aria-label="Primary" class="site-nav" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; font-size: 14px">
         <a class="nav-link" href="#about" style="min-height: 44px; display: flex; align-items: center">About</a>
         <a class="nav-link" href="#experience" style="min-height: 44px; display: flex; align-items: center">Experience</a>
         <a class="nav-link" href="#skills" style="min-height: 44px; display: flex; align-items: center">Skills</a>
@@ -87,7 +141,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
         <a class="nav-link" href="#contact" style="min-height: 44px; display: flex; align-items: center">Contact</a>
       </nav>
     </div>
-    <div style="margin-top: 12px; border-top: 1px solid #2A2A2F; padding-top: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A">
+    <div class="header-subline" style="margin-top: 12px; border-top: 1px solid #2A2A2F; padding-top: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A">
       <span>visual communication</span>
       <span>creative / visual / motion / ai</span>
     </div>
@@ -100,15 +154,15 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
       <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(#2E2E34 1.3px, transparent 1.7px); background-size: 28px 28px; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent)"></div>
       <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: {{glow}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
       <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(var(--accent) 1.6px, transparent 2.2px); background-size: 28px 28px; -webkit-mask-image: {{spotMask}}; mask-image: {{spotMask}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
-      <div style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px 24px 112px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 56px 72px">
+      <div class="hero-inner" style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px 24px 112px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 56px 72px">
       <div style="flex: 1 1 520px; min-width: 0">
         <p class="rise" style="margin: 0 0 28px; font-size: 13px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent)">Graphic Designer / Video Editor</p>
-        <h1 class="rise-2" style="margin: 0; font-size: clamp(64px, 10vw, 136px); line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase">
+        <h1 class="rise-2 hero-title" style="margin: 0; font-size: clamp(64px, 10vw, 136px); line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase">
           <span class="name-a" style="display: block; width: fit-content; font-weight: 800">Parvez</span>
           <span class="name-b" style="display: block; width: fit-content; font-weight: 200">Alam</span>
         </h1>
-        <p class="rise-3" style="margin: 36px 0 0; max-width: 560px; font-size: 19px; line-height: 1.65; color: #C9C5C8; text-wrap: pretty">Creative professional in video editing and multimedia design, blending creativity with technical precision to tell stories that actually stick with people.</p>
-        <div class="rise-3" style="margin-top: 40px; display: flex; flex-wrap: wrap; gap: 14px">
+        <p class="rise-3 hero-desc" style="margin: 36px 0 0; max-width: 560px; font-size: 19px; line-height: 1.65; color: #C9C5C8; text-wrap: pretty">Creative professional in video editing and multimedia design, blending creativity with technical precision to tell stories that actually stick with people.</p>
+        <div class="rise-3 hero-actions" style="margin-top: 40px; display: flex; flex-wrap: wrap; gap: 14px">
           <a class="btn-primary" href="https://www.behance.net/parvezalam_" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 28px; box-sizing: border-box; background: #F2F0EE; color: #0B0B0D; font-size: 15px; font-weight: 500">
             View Behance portfolio
             <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
@@ -130,7 +184,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 
     <!-- ABOUT -->
     <section id="about" style="border-top: 1px solid #2A2A2F">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+      <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
           <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">01 — About</p>
         </div>
@@ -138,7 +192,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
           <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance">A creative professional who loves <strong style="font-weight: 700">video editing</strong> and <strong style="font-weight: 700">multimedia design</strong>.</h2>
           <p style="margin: 32px 0 0; max-width: 680px; font-size: 18px; line-height: 1.75; color: #C9C5C8; text-wrap: pretty">I work with Adobe Photoshop, Illustrator, Premiere Pro, After Effects and Blender to bring ideas to life, and I’ve recently added generative AI to my creative toolkit, using it to push boundaries and speed up my workflow. I’m all about blending creativity with technical precision to tell stories that actually stick with people.</p>
 
-          <div style="margin-top: 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 40px 48px">
+          <div class="about-grid" style="margin-top: 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 40px 48px">
             <div>
               <h3 style="margin: 0 0 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Education</h3>
               <p style="margin: 0; font-size: 16px; font-weight: 500">Higher Secondary Certificate</p>
@@ -166,7 +220,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 
     <!-- EXPERIENCE -->
     <section id="experience" style="border-top: 1px solid #2A2A2F">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+      <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
           <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">02 — Experience</p>
         </div>
@@ -212,7 +266,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 
     <!-- SKILLS -->
     <section id="skills" style="border-top: 1px solid #2A2A2F">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+      <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
           <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">03 — Skills</p>
         </div>
@@ -220,7 +274,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
           <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em">The <strong style="font-weight: 700">toolkit</strong></h2>
         </div>
 
-        <div style="flex: 1 1 100%; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 16px">
+        <div class="skills-grid" style="flex: 1 1 100%; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 16px">
             <div class="tile" style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px; padding: 24px; border: 1px solid #2A2A2F; background: #111114">
               <div class="tile-icon" aria-hidden="true" style="width: 64px; height: 64px; box-sizing: border-box; border: 1.5px solid #F2F0EE; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F0EE">Ps</div>
               <div>
@@ -265,7 +319,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 
     <!-- SELECTED WORK -->
     <section id="work" style="border-top: 1px solid #2A2A2F">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box">
+      <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box">
         <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px">
           <div style="flex: 1 1 420px; min-width: 0">
             <p style="margin: 0 0 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">04 — Work</p>
@@ -277,7 +331,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
           </a>
         </div>
 
-        <div role="radiogroup" aria-label="Filter work by category" style="position: relative; margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px">
+        <div class="filter-bar" role="radiogroup" aria-label="Filter work by category" style="position: relative; margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px">
           <input class="flt" type="radio" name="work-filter" id="f-all" checked=""><label class="chip" for="f-all">All</label>
           <input class="flt" type="radio" name="work-filter" id="f-ads"><label class="chip" for="f-ads">Digital Ads</label>
           <input class="flt" type="radio" name="work-filter" id="f-social"><label class="chip" for="f-social">Social Media</label>
@@ -773,7 +827,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 
     <!-- EXPERTISE -->
     <section id="expertise" style="border-top: 1px solid #2A2A2F">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+      <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
           <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">05 — Expertise</p>
         </div>
@@ -801,12 +855,12 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 
     <!-- CONTACT -->
     <section id="contact" style="border-top: 1px solid #2A2A2F">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 112px 24px 96px; box-sizing: border-box">
+      <div class="contact-inner" style="max-width: 1200px; margin: 0 auto; padding: 112px 24px 96px; box-sizing: border-box">
         <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">06 — Contact</p>
         <h2 style="margin: 24px 0 0; max-width: 900px; font-size: clamp(36px, 6vw, 84px); font-weight: 300; line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance">Let’s make something that <strong style="font-weight: 800">sticks</strong>.</h2>
         <a class="contact-link" href="mailto:parvez.csmbd@gmail.com" style="margin-top: 48px; display: inline-block; font-size: clamp(22px, 3.6vw, 44px); font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere; border-bottom: 2px solid var(--accent); padding-bottom: 6px">parvez.csmbd@gmail.com</a>
 
-        <div style="margin-top: 72px; padding-top: 32px; border-top: 1px solid #2A2A2F; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 36px 48px">
+        <div class="contact-meta-grid" style="margin-top: 72px; padding-top: 32px; border-top: 1px solid #2A2A2F; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 36px 48px">
           <div>
             <h3 style="margin: 0 0 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #9A969A">Phone</h3>
             <a class="contact-link" href="tel:+8801823970902" style="font-size: 17px; min-height: 44px; display: inline-flex; align-items: center">+880 1823 970902</a>
@@ -825,7 +879,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
   </main>
 
   <footer style="border-top: 1px solid #2A2A2F">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; font-size: 14px; color: #9A969A">
+    <div class="footer-inner" style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; font-size: 14px; color: #9A969A">
       <span>© 2026 Parvez Alam · Graphic Designer / Video Editor</span>
       <a class="nav-link" href="#top" style="min-height: 44px; display: inline-flex; align-items: center">Back to top</a>
     </div>
