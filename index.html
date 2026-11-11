@@ -159,7 +159,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
   <main>
 
     <!-- HERO -->
-    <section id="hero" onMouseMove="{{ onMove }}" onMouseLeave="{{ onLeave }}" onTouchStart="{{ onTouch }}" onTouchMove="{{ onTouch }}" style="position: relative; overflow: hidden">
+    <section id="hero" style="position: relative; overflow: hidden">
       <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(#2E2E34 1.3px, transparent 1.7px); background-size: 28px 28px; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent)"></div>
       <div id="hero-glow" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: {{glow}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
       <div id="hero-spot" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(var(--accent) 1.6px, transparent 2.2px); background-size: 28px 28px; -webkit-mask-image: {{spotMask}}; mask-image: {{spotMask}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
@@ -930,33 +930,130 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF3D5E","options":["#FF3D5E","#FF6B3D","#3DA9FF","#B6F23D"]},"$preview":{"width":1440,"height":6800}}'>
 class Component extends DCLogic {
-state = { mx: 900, my: 260, on: true };
-renderVals() {
-const accent = this.props.accent ?? '#FF3D5E';
-const mx = this.state.mx;
-const my = this.state.my;
-const on = this.state.on;
-return {
-accent: accent,
-spotOpacity: on ? 1 : 0,
-spotMask: 'radial-gradient(circle 200px at ' + mx + 'px ' + my + 'px, #000 0%, rgba(0,0,0,0) 100%)',
-glow: 'radial-gradient(circle 280px at ' + mx + 'px ' + my + 'px, color-mix(in srgb, ' + accent + ' 13%, transparent), transparent)',
-onMove: (e) => {
-const r = e.currentTarget.getBoundingClientRect();
-const x = Math.round(e.clientX - r.left);
-const y = Math.round(e.clientY - r.top);
-if (this.state.on && Math.abs(x - this.state.mx) + Math.abs(y - this.state.my) < 4) return;
-this.setState({ mx: x, my: y, on: true });
-},
-onLeave: () => { this.setState({ on: false }); },
-onTouch: (e) => {
-if (!e.touches || !e.touches[0]) return;
-const r = e.currentTarget.getBoundingClientRect();
-const x = Math.round(e.touches[0].clientX - r.left);
-const y = Math.round(e.touches[0].clientY - r.top);
-this.setState({ mx: x, my: y, on: true });
+componentDidMount() {
+  this.initSmoothLight();
 }
-};
+componentDidUpdate() {
+  this.initSmoothLight();
+}
+initSmoothLight() {
+  if (this._smoothInitialized) return;
+  const hero = document.getElementById('hero') || document.querySelector('section');
+  if (!hero) return;
+  const divs = hero.querySelectorAll(':scope > div');
+  const glow = divs[1];
+  const spot = divs[2];
+  if (!glow || !spot) return;
+
+  this._smoothInitialized = true;
+  const accent = this.props.accent ?? '#FF3D5E';
+
+  function getRestPos() {
+    const w = hero.offsetWidth || window.innerWidth;
+    const h = hero.offsetHeight || 600;
+    return {
+      x: w > 900 ? 900 : Math.round(w * 0.55),
+      y: w > 900 ? 260 : Math.min(260, Math.round(h * 0.45))
+    };
+  }
+
+  const rest = getRestPos();
+  let targetX = rest.x;
+  let targetY = rest.y;
+  let currentX = rest.x;
+  let currentY = rest.y;
+  let targetOpacity = 1;
+  let currentOpacity = 1;
+  let isRunning = false;
+  let rafId = null;
+
+  function render(x, y, op) {
+    glow.style.background = 'radial-gradient(circle 280px at ' + x.toFixed(1) + 'px ' + y.toFixed(1) + 'px, color-mix(in srgb, ' + accent + ' 13%, transparent), transparent)';
+    glow.style.opacity = op.toFixed(2);
+    const mask = 'radial-gradient(circle 200px at ' + x.toFixed(1) + 'px ' + y.toFixed(1) + 'px, #000 0%, rgba(0,0,0,0) 100%)';
+    spot.style.webkitMaskImage = mask;
+    spot.style.maskImage = mask;
+    spot.style.opacity = op.toFixed(2);
+  }
+
+  function tick() {
+    const dx = targetX - currentX;
+    const dy = targetY - currentY;
+    const dop = targetOpacity - currentOpacity;
+
+    currentX += dx * 0.28;
+    currentY += dy * 0.28;
+    currentOpacity += dop * 0.18;
+
+    render(currentX, currentY, currentOpacity);
+
+    if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1 || Math.abs(dop) > 0.01) {
+      rafId = requestAnimationFrame(tick);
+    } else {
+      currentX = targetX;
+      currentY = targetY;
+      currentOpacity = targetOpacity;
+      render(currentX, currentY, currentOpacity);
+      isRunning = false;
+    }
+  }
+
+  function wake() {
+    if (!isRunning) {
+      isRunning = true;
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  function onPointer(clientX, clientY) {
+    const r = hero.getBoundingClientRect();
+    targetX = clientX - r.left;
+    targetY = clientY - r.top;
+    targetOpacity = 1;
+    wake();
+  }
+
+  hero.addEventListener('mousemove', (e) => onPointer(e.clientX, e.clientY), { passive: true });
+  hero.addEventListener('mouseenter', (e) => onPointer(e.clientX, e.clientY), { passive: true });
+  hero.addEventListener('mouseleave', () => {
+    targetOpacity = 0;
+    wake();
+  }, { passive: true });
+
+  hero.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) onPointer(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  hero.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) onPointer(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  hero.addEventListener('touchend', () => {
+    setTimeout(() => {
+      targetOpacity = 1;
+      wake();
+    }, 400);
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (targetOpacity === 0) return;
+    const p = getRestPos();
+    targetX = p.x;
+    targetY = p.y;
+    wake();
+  }, { passive: true });
+
+  render(currentX, currentY, currentOpacity);
+}
+
+renderVals() {
+  const accent = this.props.accent ?? '#FF3D5E';
+  return {
+    accent: accent,
+    spotOpacity: 1,
+    spotMask: 'radial-gradient(circle 200px at 900px 260px, #000 0%, rgba(0,0,0,0) 100%)',
+    glow: 'radial-gradient(circle 280px at 900px 260px, color-mix(in srgb, ' + accent + ' 13%, transparent), transparent)'
+  };
 }
 }
 </script>
