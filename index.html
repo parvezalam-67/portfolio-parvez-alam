@@ -31,8 +31,7 @@ nav .nav-link::after{content:'';position:absolute;left:0;right:0;bottom:6px;heig
 nav .nav-link.active::after{transform:scaleX(1)}
 .btn-primary svg,.nav-link svg{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
 .name-a,.name-b{transition:font-weight .6s cubic-bezier(.2,.7,.2,1)}
-.photo-wrap .br{transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1)}
-.photo-wrap img{filter:saturate(.85);transition:filter .5s}
+.photo-wrap img{transition:transform .4s cubic-bezier(.2,.7,.2,1)}
 .tile{transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s,background .3s}
 .tile-icon{transition:background .3s,color .3s}
 .ph{transition:border-color .3s,color .3s,background .3s}
@@ -60,8 +59,7 @@ nav .nav-link:hover::after,nav .nav-link:focus-visible::after{transform:scaleX(1
 .btn-primary:hover svg,.nav-link:hover svg{transform:translate(3px,-3px)}
 .name-a:hover{font-weight:200!important}
 .name-b:hover{font-weight:800!important}
-.photo-wrap:hover .br{width:56px!important;height:56px!important}
-.photo-wrap:hover img{filter:none}
+.photo-wrap:hover img{transform:scale(1.02)}
 .tile:hover{transform:translateY(-6px);border-color:#5A5A62!important;background:#16161A!important}
 .tile:hover .tile-icon{background:#F2F0EE!important;color:#0B0B0D!important}
 .ph:hover{border-color:var(--accent)!important;color:#F2F0EE!important;background:#16161A!important}
@@ -181,12 +179,8 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
         <p class="rise-3" style="margin: 44px 0 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A">Now at Doin.Tech · Dhaka, Bangladesh</p>
       </div>
 
-      <div class="rise-2 photo-wrap" style="flex: 0 1 400px; min-width: 0; width: 100%; max-width: 400px; margin: 0 auto; position: relative">
-        <div style="position: relative; padding: 10px; border: 1px solid #2A2A2F; background: #111114">
-          <img src="./assets/profile.png" alt="Portrait of Parvez Alam" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center">
-        </div>
-        <div class="br" aria-hidden="true" style="position: absolute; top: -2px; right: -2px; width: 28px; height: 28px; border-top: 3px solid var(--accent); border-right: 3px solid var(--accent)"></div>
-        <div class="br" aria-hidden="true" style="position: absolute; bottom: -2px; left: -2px; width: 28px; height: 28px; border-bottom: 3px solid var(--accent); border-left: 3px solid var(--accent)"></div>
+      <div class="rise-2 photo-wrap" style="flex: 0 1 440px; min-width: 0; width: 100%; max-width: 460px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center">
+        <img src="./assets/profile.png" alt="Parvez Alam" style="display: block; width: 100%; height: auto; max-height: 560px; object-fit: contain; filter: drop-shadow(0 16px 36px rgba(0,0,0,0.7));">
       </div>
       </div>
     </section>
