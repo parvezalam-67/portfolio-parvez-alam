@@ -159,10 +159,10 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
   <main>
 
     <!-- HERO -->
-    <section id="hero" style="position: relative; overflow: hidden; --spot-x: 900px; --spot-y: 260px; --spot-opacity: 1">
+    <section id="hero" onMouseMove="{{ onMove }}" onMouseLeave="{{ onLeave }}" onTouchStart="{{ onTouch }}" onTouchMove="{{ onTouch }}" style="position: relative; overflow: hidden">
       <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(#2E2E34 1.3px, transparent 1.7px); background-size: 28px 28px; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent)"></div>
-      <div id="hero-glow" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle 280px at var(--spot-x, 900px) var(--spot-y, 260px), color-mix(in srgb, var(--accent, #FF3D5E) 13%, transparent), transparent); opacity: var(--spot-opacity, 1); transition: opacity 0.5s ease"></div>
-      <div id="hero-spot" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(var(--accent, #FF3D5E) 1.6px, transparent 2.2px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(circle 200px at var(--spot-x, 900px) var(--spot-y, 260px), #000 0%, rgba(0,0,0,0) 100%); mask-image: radial-gradient(circle 200px at var(--spot-x, 900px) var(--spot-y, 260px), #000 0%, rgba(0,0,0,0) 100%); opacity: var(--spot-opacity, 1); transition: opacity 0.5s ease"></div>
+      <div id="hero-glow" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: {{glow}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
+      <div id="hero-spot" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(var(--accent) 1.6px, transparent 2.2px); background-size: 28px 28px; -webkit-mask-image: {{spotMask}}; mask-image: {{spotMask}}; opacity: {{spotOpacity}}; transition: opacity 0.5s"></div>
       <div class="hero-inner" style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px 24px 112px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 56px 72px">
       <div style="flex: 1 1 520px; min-width: 0">
         <p class="rise" style="margin: 0 0 28px; font-size: 13px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent)">Graphic Designer / Video Editor</p>
@@ -930,7 +930,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF3D5E","options":["#FF3D5E","#FF6B3D","#3DA9FF","#B6F23D"]},"$preview":{"width":1440,"height":6800}}'>
 class Component extends DCLogic {
-state = { mx: 900, my: 260, on: false };
+state = { mx: 900, my: 260, on: true };
 renderVals() {
 const accent = this.props.accent ?? '#FF3D5E';
 const mx = this.state.mx;
@@ -948,117 +948,17 @@ const y = Math.round(e.clientY - r.top);
 if (this.state.on && Math.abs(x - this.state.mx) + Math.abs(y - this.state.my) < 4) return;
 this.setState({ mx: x, my: y, on: true });
 },
-onLeave: () => { this.setState({ on: false }); }
+onLeave: () => { this.setState({ on: false }); },
+onTouch: (e) => {
+if (!e.touches || !e.touches[0]) return;
+const r = e.currentTarget.getBoundingClientRect();
+const x = Math.round(e.touches[0].clientX - r.left);
+const y = Math.round(e.touches[0].clientY - r.top);
+this.setState({ mx: x, my: y, on: true });
+}
 };
 }
 }
-</script>
-<script>
-(function () {
-  var hero = document.getElementById('hero');
-  if (!hero) return;
-
-  var glowEl = document.getElementById('hero-glow');
-  var spotEl = document.getElementById('hero-spot');
-  var accent = '#FF3D5E';
-
-  function getDefaultPos() {
-    var w = hero.offsetWidth || window.innerWidth;
-    var h = hero.offsetHeight || 600;
-    return {
-      x: w > 900 ? 900 : Math.round(w * 0.55),
-      y: w > 900 ? 260 : Math.min(260, Math.round(h * 0.45))
-    };
-  }
-
-  var defaultPos = getDefaultPos();
-  var currentX = defaultPos.x;
-  var currentY = defaultPos.y;
-  var isHovered = false;
-  var rafId = null;
-
-  function renderSpot(x, y, opacity) {
-    hero.style.setProperty('--spot-x', x + 'px');
-    hero.style.setProperty('--spot-y', y + 'px');
-    hero.style.setProperty('--spot-opacity', opacity);
-
-    if (glowEl) {
-      glowEl.style.background = 'radial-gradient(circle 280px at ' + x + 'px ' + y + 'px, color-mix(in srgb, ' + accent + ' 13%, transparent), transparent)';
-      glowEl.style.opacity = opacity;
-    }
-    if (spotEl) {
-      var mask = 'radial-gradient(circle 200px at ' + x + 'px ' + y + 'px, #000 0%, rgba(0,0,0,0) 100%)';
-      spotEl.style.webkitMaskImage = mask;
-      spotEl.style.maskImage = mask;
-      spotEl.style.opacity = opacity;
-    }
-  }
-
-  // Initial render: show default spotlight position matching design preview
-  renderSpot(currentX, currentY, 1);
-
-  function onPointerMove(clientX, clientY) {
-    var r = hero.getBoundingClientRect();
-    var x = Math.round(clientX - r.left);
-    var y = Math.round(clientY - r.top);
-
-    if (isHovered && Math.abs(x - currentX) + Math.abs(y - currentY) < 3) return;
-
-    currentX = x;
-    currentY = y;
-    isHovered = true;
-
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(function () {
-      renderSpot(currentX, currentY, 1);
-    });
-  }
-
-  hero.addEventListener('mousemove', function (e) {
-    onPointerMove(e.clientX, e.clientY);
-  }, { passive: true });
-
-  hero.addEventListener('mouseenter', function (e) {
-    onPointerMove(e.clientX, e.clientY);
-  }, { passive: true });
-
-  hero.addEventListener('mouseleave', function () {
-    isHovered = false;
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(function () {
-      renderSpot(currentX, currentY, 0);
-    });
-  });
-
-  hero.addEventListener('touchstart', function (e) {
-    if (e.touches && e.touches[0]) {
-      onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, { passive: true });
-
-  hero.addEventListener('touchmove', function (e) {
-    if (e.touches && e.touches[0]) {
-      onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, { passive: true });
-
-  hero.addEventListener('touchend', function () {
-    setTimeout(function () {
-      if (!isHovered) {
-        renderSpot(currentX, currentY, 1);
-      }
-    }, 400);
-  }, { passive: true });
-
-  window.addEventListener('resize', function () {
-    if (!isHovered) {
-      var pos = getDefaultPos();
-      currentX = pos.x;
-      currentY = pos.y;
-      renderSpot(currentX, currentY, 1);
-    }
-  }, { passive: true });
-})();
 </script>
 <script>
 (function() {
