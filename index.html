@@ -77,6 +77,11 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 #work:has(#f-logo:checked) .work-grid figure:not(:has([data-cat="logo"])),
 #work:has(#f-print:checked) .work-grid figure:not(:has([data-cat="print"])){display:none}
 @keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.acting-card{transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s,background .3s}
+.acting-card:hover{transform:translateY(-6px);border-color:#5A5A62!important;background:#16161A!important}
+.acting-card:hover svg{transform:scale(1.1)}
+
 .work-grid figure{animation:pop .45s cubic-bezier(.2,.7,.2,1) both}
 @media (prefers-reduced-motion:reduce){.work-grid figure{animation:none}}
 @keyframes reveal{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
@@ -104,7 +109,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 .section-inner{padding:56px 16px!important;gap:28px!important}
 .hero-inner{padding:44px 16px 0!important;gap:32px!important}
 .hero-text{padding-bottom:24px!important}
-.photo-wrap{max-width:340px!important;margin:0 auto!important}
+.photo-wrap{max-width:330px!important;margin:0 auto -70px!important;transform:translateX(14px)!important}
 .hero-title{font-size:clamp(40px,11vw,76px)!important;line-height:.95!important}
 .hero-desc{font-size:16px!important;line-height:1.6!important;margin-top:24px!important}
 .hero-actions{margin-top:28px!important;flex-direction:column!important;width:100%!important}
@@ -146,6 +151,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
         <a class="nav-link" href="#experience" style="min-height: 44px; display: flex; align-items: center">Experience</a>
         <a class="nav-link" href="#skills" style="min-height: 44px; display: flex; align-items: center">Skills</a>
         <a class="nav-link" href="#work" style="min-height: 44px; display: flex; align-items: center">Work</a>
+        <a class="nav-link" href="#acting" style="min-height: 44px; display: flex; align-items: center">Acting</a>
         <a class="nav-link" href="#contact" style="min-height: 44px; display: flex; align-items: center">Contact</a>
       </nav>
     </div>
@@ -352,151 +358,276 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
               <div data-video-slot style="position: relative; aspect-ratio: 16 / 9; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-video-tsc-cafe-thumb.jpg" alt="TSC video thumbnail: two people at a cafe with a phone" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></div>
             </button>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">TSC Video</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">TSC Infinity — Mobile Trading Cafe Commercial Ad</span>
               <span class="nav-link" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; font-size: 14px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Play video</span>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
+              <span data-cat="video" style="display: none"></span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <button type="button" data-video-play="1gzWyRHPxNRXqxutVl8f9R8EEszfnLqeF" aria-label="Play trade2sync robot video" style="display: block; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: pointer; text-align: left; color: inherit">
               <div data-video-slot style="position: relative; aspect-ratio: 16 / 9; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-video-trade2sync-robot-thumb.jpg" alt="trade2sync robot video thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></div>
             </button>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync Robot Video</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — 3D Mascot Robot Boardroom Video Ad</span>
               <span class="nav-link" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; font-size: 14px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Play video</span>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
+              <span data-cat="video" style="display: none"></span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <button type="button" data-video-play="18SmBVm1d95QqQCmYF5fY4x-6O2al9oog" aria-label="Play Connect Telegram and broker video" style="display: block; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: pointer; text-align: left; color: inherit">
               <div data-video-slot style="position: relative; aspect-ratio: 16 / 9; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-video-telegram-broker-thumb.jpg" alt="Connect Telegram and your broker video thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></div>
             </button>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Connect Telegram &amp; Your Broker</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — Telegram Copier & Broker Integration Explainer</span>
               <span class="nav-link" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; font-size: 14px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Play video</span>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
+              <span data-cat="video" style="display: none"></span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <button type="button" data-video-play="1kc9-EHl8BmusQw10Gy2pRHVNSiGWwL7N" aria-label="Play NAS100 and US30 signals video" style="display: block; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: pointer; text-align: left; color: inherit">
               <div data-video-slot style="position: relative; aspect-ratio: 16 / 9; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-video-nas100-thumb.jpg" alt="NAS100 and US30 signals video thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></div>
             </button>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">NAS100 &amp; US30 Signals Video</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Indices Trading — NAS100 & US30 Pre-Session Signals Video Ad</span>
               <span class="nav-link" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; font-size: 14px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Play video</span>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
+              <span data-cat="video" style="display: none"></span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <button type="button" data-video-play="1yBQw0GnGybURkTR4O-O_HQpWMDt13jn-" aria-label="Play Black Friday Sale video" style="display: block; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: pointer; text-align: left; color: inherit">
               <div data-video-slot style="position: relative; aspect-ratio: 16 / 9; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-video-black-friday-thumb.jpg" alt="Black Friday Sale video thumbnail: up to 67% off" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></div>
             </button>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Black Friday Sale Video</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — Black Friday 67% Off Promo Video Ad</span>
               <span class="nav-link" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; font-size: 14px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Play video</span>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
+              <span data-cat="video" style="display: none"></span>
             </figcaption>
           </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/798659482061002" target="_blank" rel="noopener noreferrer" aria-label="One Dish Party Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/facebook-reel-1-thumbnail.jpg" alt="One Dish Party Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">One Dish Party Event Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/798659482061002" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/1548847992438011" target="_blank" rel="noopener noreferrer" aria-label="Cox's Bazar Tour Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/facebook-reel-2-thumbnail-v2.jpg" alt="Cox's Bazar Tour Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Cox's Bazar Tour Travel Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/1548847992438011" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/1128727838602440" target="_blank" rel="noopener noreferrer" aria-label="Happy 5 Years Anniversary Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/facebook-reel-3-thumbnail.png" alt="Happy 5 Years Anniversary Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Company 5-Year Anniversary Celebration Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/1128727838602440" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/1798309937304744" target="_blank" rel="noopener noreferrer" aria-label="Family Moment Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/facebook-reel-4-thumbnail.png" alt="Family Moment Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Family Moment Documentary Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/1798309937304744" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/2706599906379706" target="_blank" rel="noopener noreferrer" aria-label="Ramadan Iftar Party Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/meta-reel-iftar-party-thumb.jpg" alt="Ramadan Iftar Party Reel thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Ramadan Iftar Party Celebration Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/2706599906379706" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2026</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/989016447119994" target="_blank" rel="noopener noreferrer" aria-label="Pohela Boishakh Celebration Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/meta-reel-pohela-boishak-thumb.jpg" alt="Pohela Boishakh Celebration Reel thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Pohela Boishakh Festive Celebration Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/989016447119994" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2026</span>
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 0">
+            <a href="https://www.facebook.com/reel/1213100384145958" target="_blank" rel="noopener noreferrer" aria-label="Employee Recognition Kaizen Board Reel on Facebook (opens in a new tab)" style="display: block">
+              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
+                <img src="./assets/employee-recognition-kaizen-board.jpg" alt="Employee Recognition Kaizen Board Reel thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
+              </div>
+            </a>
+            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Employee Recognition & Kaizen Board Reel</span>
+              <a class="nav-link" href="https://www.facebook.com/reel/1213100384145958" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2026</span>
+            </figcaption>
+          </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-black-friday-forex-2026.jpg" target="_blank" rel="noopener noreferrer" aria-label="Black Friday Forex 2026 Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-black-friday-forex-2026.jpg" alt="Black Friday Forex 2026 Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Black Friday Forex 2026</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">SureshotFX — Black Friday 72% Off Forex Subscription Ad</span>
               <a class="nav-link" href="./assets/meta-black-friday-forex-2026.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-fear-of-missing.jpg" target="_blank" rel="noopener noreferrer" aria-label="Fear of Missing Out Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-fear-of-missing.jpg" alt="Fear of Missing Out Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Fear of Missing Out</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — "What If The Next Signal Comes" FOMO Ad</span>
               <a class="nav-link" href="./assets/meta-fear-of-missing.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-desire-for-freedom.jpg" target="_blank" rel="noopener noreferrer" aria-label="Desire for Freedom Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-desire-for-freedom.jpg" alt="Desire for Freedom Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Desire for Freedom</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — "Weekend Without Trading Schedule" Freedom Ad</span>
               <a class="nav-link" href="./assets/meta-desire-for-freedom.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-black-friday-67-sale.jpg" target="_blank" rel="noopener noreferrer" aria-label="Black Friday 67% Sale 2026 Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-black-friday-67-sale.jpg" alt="Black Friday 67% Sale 2026 Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Black Friday 67% Sale 2026</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — Black Friday 67% Off Workspaces Ad</span>
               <a class="nav-link" href="./assets/meta-black-friday-67-sale.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-clickup.jpg" target="_blank" rel="noopener noreferrer" aria-label="ClickUp Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-clickup.jpg" alt="ClickUp Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">ClickUp</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — "One Signal Multiple Platforms" Multi-Broker Ad</span>
               <a class="nav-link" href="./assets/meta-clickup.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-workflow.jpg" target="_blank" rel="noopener noreferrer" aria-label="Workflow Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-workflow.jpg" alt="Workflow Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Workflow</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">trade2sync — "Rules Beat Reflexes" Cloud Automation Ad</span>
               <a class="nav-link" href="./assets/meta-workflow.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-stop-wasting-l.jpg" target="_blank" rel="noopener noreferrer" aria-label="Stop Wasting L Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-stop-wasting-l.jpg" alt="Stop Wasting L Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Stop Wasting L</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">SureshotFX — "Stop Wasting Time Trade Smarter" VIP Ad</span>
               <a class="nav-link" href="./assets/meta-stop-wasting-l.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-m1-a2-c2-slide-1.jpg" target="_blank" rel="noopener noreferrer" aria-label="M1-A2-C2 Slide 1 Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-m1-a2-c2-slide-1.jpg" alt="M1-A2-C2 Slide 1 Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">M1-A2-C2 Slide 1</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">SureshotFX — "One Signal Sized to Risk" Carousel (Slide 1)</span>
               <a class="nav-link" href="./assets/meta-m1-a2-c2-slide-1.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-m1-a2-c2-slide-2.jpg" target="_blank" rel="noopener noreferrer" aria-label="M1-A2-C2 Slide 2 Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-m1-a2-c2-slide-2.jpg" alt="M1-A2-C2 Slide 2 Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">M1-A2-C2 Slide 2</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">SureshotFX — Account Risk Management Carousel (Slide 2)</span>
               <a class="nav-link" href="./assets/meta-m1-a2-c2-slide-2.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="./assets/meta-m7-a1-16x9.jpg" target="_blank" rel="noopener noreferrer" aria-label="M7-A1 16x9 Meta ad (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/meta-m7-a1-16x9.jpg" alt="M7-A1 16x9 Meta ad" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
             </a>
             <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">M7-A1 16x9</span>
+              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">SureshotFX — "Don't Trust Us Two-Week Trial" Telegram Ad</span>
               <a class="nav-link" href="./assets/meta-m7-a1-16x9.jpg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #F2F0EE">View full ad</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="ads">Meta Ads · 2026</span>
             </figcaption>
           </figure>
+
           <figure style="margin: 0">
             <a href="https://www.behance.net/gallery/240069003/Title-Animation" target="_blank" rel="noopener noreferrer" aria-label="Title Animation on Behance (opens in a new tab)" style="display: block">
               <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden"><img src="./assets/dc73739a6dce4ce38e075bb0bd0a4628.jpg" alt="Title Animation cover" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center"><span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></div>
@@ -753,120 +884,104 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
             </figcaption>
           </figure>
 
-          <figure style="margin: 0">
-            <a href="https://www.facebook.com/reel/798659482061002" target="_blank" rel="noopener noreferrer" aria-label="One Dish Party Reel on Facebook (opens in a new tab)" style="display: block">
-              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
-                <img src="./assets/facebook-reel-1-thumbnail.jpg" alt="One Dish Party Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
-                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
-              </div>
-            </a>
-            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">One Dish Party Reel</span>
-              <a class="nav-link" href="https://www.facebook.com/reel/798659482061002" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
-            </figcaption>
-          </figure>
-
-          <figure style="margin: 0">
-            <a href="https://www.facebook.com/reel/1548847992438011" target="_blank" rel="noopener noreferrer" aria-label="Cox's Bazar Tour Reel on Facebook (opens in a new tab)" style="display: block">
-              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
-                <img src="./assets/facebook-reel-2-thumbnail-v2.jpg" alt="Cox's Bazar Tour Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
-                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
-              </div>
-            </a>
-            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Cox's Bazar Tour Reel</span>
-              <a class="nav-link" href="https://www.facebook.com/reel/1548847992438011" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
-            </figcaption>
-          </figure>
-
-          <figure style="margin: 0">
-            <a href="https://www.facebook.com/reel/1128727838602440" target="_blank" rel="noopener noreferrer" aria-label="Happy 5 Years Anniversary Reel on Facebook (opens in a new tab)" style="display: block">
-              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
-                <img src="./assets/facebook-reel-3-thumbnail.png" alt="Happy 5 Years Anniversary Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
-                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
-              </div>
-            </a>
-            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Happy 5 Years Anniversary</span>
-              <a class="nav-link" href="https://www.facebook.com/reel/1128727838602440" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
-            </figcaption>
-          </figure>
-
-          <figure style="margin: 0">
-            <a href="https://www.facebook.com/reel/1798309937304744" target="_blank" rel="noopener noreferrer" aria-label="Family Moment Reel on Facebook (opens in a new tab)" style="display: block">
-              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
-                <img src="./assets/facebook-reel-4-thumbnail.png" alt="Family Moment Reel thumbnail" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
-                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
-              </div>
-            </a>
-            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Family Moment</span>
-              <a class="nav-link" href="https://www.facebook.com/reel/1798309937304744" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2025</span>
-            </figcaption>
-          </figure>
-
-          <figure style="margin: 0">
-            <a href="https://www.facebook.com/reel/2706599906379706" target="_blank" rel="noopener noreferrer" aria-label="Ramadan Iftar Party Reel on Facebook (opens in a new tab)" style="display: block">
-              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
-                <img src="./assets/meta-reel-iftar-party-thumb.jpg" alt="Ramadan Iftar Party Reel thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
-                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
-              </div>
-            </a>
-            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Ramadan Iftar Party Reel</span>
-              <a class="nav-link" href="https://www.facebook.com/reel/2706599906379706" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2026</span>
-            </figcaption>
-          </figure>
-
-          <figure style="margin: 0">
-            <a href="https://www.facebook.com/reel/989016447119994" target="_blank" rel="noopener noreferrer" aria-label="Pohela Boishakh Celebration Reel on Facebook (opens in a new tab)" style="display: block">
-              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
-                <img src="./assets/meta-reel-pohela-boishak-thumb.jpg" alt="Pohela Boishakh Celebration Reel thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
-                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
-              </div>
-            </a>
-            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Pohela Boishakh Celebration Reel</span>
-              <a class="nav-link" href="https://www.facebook.com/reel/989016447119994" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2026</span>
-            </figcaption>
-          </figure>
-
-          <figure style="margin: 0">
-            <a href="https://www.facebook.com/reel/1213100384145958" target="_blank" rel="noopener noreferrer" aria-label="Employee Recognition Kaizen Board Reel on Facebook (opens in a new tab)" style="display: block">
-              <div class="ph" style="position: relative; aspect-ratio: 16 / 10; box-sizing: border-box; background: #111114; border: 1px solid #2A2A2F; overflow: hidden">
-                <img src="./assets/employee-recognition-kaizen-board.jpg" alt="Employee Recognition Kaizen Board Reel thumbnail" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
-                <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                <span aria-hidden="true" style="position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; background: rgba(11,11,13,0.82); color: #F2F0EE; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span>
-              </div>
-            </a>
-            <figcaption style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 18px; font-weight: 500; line-height: 1.35">Employee Recognition Kaizen Board Reel</span>
-              <a class="nav-link" href="https://www.facebook.com/reel/1213100384145958" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 15px; color: #F2F0EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>Watch on Facebook</a>
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #9A969A" data-cat="video">Video Editing · 2026</span>
-            </figcaption>
-          </figure>
-
         </div>
       </div>
     </section>
+
+    <!-- ========================================== -->
+    <!-- 05. ACTING & SCREEN APPEARANCES SECTION    -->
+    <!-- ========================================== -->
+    <section id="acting" style="border-top: 1px solid #2A2A2F">
+      <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
+        <div style="flex: 1 1 260px; min-width: 0">
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">05 — Acting</p>
+        </div>
+        <div style="flex: 3 1 480px; min-width: 0">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px">
+            <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance">On-screen <strong style="font-weight: 700">acting roles</strong> &amp; performance</h2>
+            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.04em; color: #9A969A">Commercials · Drama · On-Camera</span>
+          </div>
+          <p style="margin: 24px 0 0; max-width: 680px; font-size: 18px; line-height: 1.7; color: #C9C5C8; text-wrap: pretty">Selected commercials, character roles, and video appearances where I have been cast as an actor. Blending screen presence with authentic performance and storytelling.</p>
+
+          <div style="margin-top: 56px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 32px">
+
+            <!-- ACTING CARD 1 -->
+            <article class="acting-card" style="position: relative; background: #111114; border: 1px solid #2A2A2F; overflow: hidden; display: flex; flex-direction: column">
+              <div style="position: relative; aspect-ratio: 16 / 9; background: radial-gradient(circle at 50% 40%, #1D1D24 0%, #0D0D10 100%); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #2A2A2F; overflow: hidden">
+                <div aria-hidden="true" style="position: absolute; inset: 0; opacity: 0.35; background-image: radial-gradient(#3A3A42 1px, transparent 1px); background-size: 18px 18px"></div>
+                <div style="position: relative; width: 64px; height: 64px; border-radius: 50%; background: rgba(242,240,238,0.06); border: 1px solid rgba(242,240,238,0.18); display: flex; align-items: center; justify-content: center; color: #F2F0EE; transition: transform 0.3s cubic-bezier(0.2,0.7,0.2,1), border-color 0.3s">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                </div>
+                <span style="position: absolute; top: 14px; left: 14px; padding: 4px 10px; background: rgba(11,11,13,0.85); border: 1px solid #2A2A2F; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent)">Commercial Role</span>
+              </div>
+              <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px; flex: 1">
+                <h3 style="margin: 0; font-size: 19px; font-weight: 500; letter-spacing: -0.01em; color: #F2F0EE">Commercial Ad Feature — Lead Character Role</h3>
+                <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #9A969A">Lead on-screen talent for digital brand commercial, featuring dialogue delivery and dynamic character pacing.</p>
+                <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #1E1E24; display: flex; align-items: center; justify-content: space-between">
+                  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: var(--accent); display: inline-flex; align-items: center; gap: 6px">
+                    <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent)"></span>
+                    Link coming soon
+                  </span>
+                  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #6E6A70">Lead Actor</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- ACTING CARD 2 -->
+            <article class="acting-card" style="position: relative; background: #111114; border: 1px solid #2A2A2F; overflow: hidden; display: flex; flex-direction: column">
+              <div style="position: relative; aspect-ratio: 16 / 9; background: radial-gradient(circle at 50% 40%, #1D1D24 0%, #0D0D10 100%); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #2A2A2F; overflow: hidden">
+                <div aria-hidden="true" style="position: absolute; inset: 0; opacity: 0.35; background-image: radial-gradient(#3A3A42 1px, transparent 1px); background-size: 18px 18px"></div>
+                <div style="position: relative; width: 64px; height: 64px; border-radius: 50%; background: rgba(242,240,238,0.06); border: 1px solid rgba(242,240,238,0.18); display: flex; align-items: center; justify-content: center; color: #F2F0EE; transition: transform 0.3s cubic-bezier(0.2,0.7,0.2,1), border-color 0.3s">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                </div>
+                <span style="position: absolute; top: 14px; left: 14px; padding: 4px 10px; background: rgba(11,11,13,0.85); border: 1px solid #2A2A2F; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent)">Narrative Drama</span>
+              </div>
+              <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px; flex: 1">
+                <h3 style="margin: 0; font-size: 19px; font-weight: 500; letter-spacing: -0.01em; color: #F2F0EE">Dramatic Character Performance — Short Film</h3>
+                <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #9A969A">Dramatic acting role focusing on emotional expression, character tension, and cinematic staging.</p>
+                <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #1E1E24; display: flex; align-items: center; justify-content: space-between">
+                  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: var(--accent); display: inline-flex; align-items: center; gap: 6px">
+                    <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent)"></span>
+                    Link coming soon
+                  </span>
+                  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #6E6A70">Character Actor</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- ACTING CARD 3 -->
+            <article class="acting-card" style="position: relative; background: #111114; border: 1px solid #2A2A2F; overflow: hidden; display: flex; flex-direction: column">
+              <div style="position: relative; aspect-ratio: 16 / 9; background: radial-gradient(circle at 50% 40%, #1D1D24 0%, #0D0D10 100%); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #2A2A2F; overflow: hidden">
+                <div aria-hidden="true" style="position: absolute; inset: 0; opacity: 0.35; background-image: radial-gradient(#3A3A42 1px, transparent 1px); background-size: 18px 18px"></div>
+                <div style="position: relative; width: 64px; height: 64px; border-radius: 50%; background: rgba(242,240,238,0.06); border: 1px solid rgba(242,240,238,0.18); display: flex; align-items: center; justify-content: center; color: #F2F0EE; transition: transform 0.3s cubic-bezier(0.2,0.7,0.2,1), border-color 0.3s">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                </div>
+                <span style="position: absolute; top: 14px; left: 14px; padding: 4px 10px; background: rgba(11,11,13,0.85); border: 1px solid #2A2A2F; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent)">Brand Campaign</span>
+              </div>
+              <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px; flex: 1">
+                <h3 style="margin: 0; font-size: 19px; font-weight: 500; letter-spacing: -0.01em; color: #F2F0EE">Brand Campaign — On-Camera Performance</h3>
+                <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #9A969A">Brand ambassador and presenter portrayal designed for multi-channel video distribution and digital engagement.</p>
+                <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #1E1E24; display: flex; align-items: center; justify-content: space-between">
+                  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: var(--accent); display: inline-flex; align-items: center; gap: 6px">
+                    <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent)"></span>
+                    Link coming soon
+                  </span>
+                  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #6E6A70">Featured Talent</span>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- EXPERTISE -->
     <section id="expertise" style="border-top: 1px solid #2A2A2F">
       <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
-          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">05 — Expertise</p>
+          <p style="margin: 0; font-family: \'JetBrains Mono\', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">06 — Expertise</p>
         </div>
         <div style="flex: 3 1 480px; min-width: 0">
           <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance">Areas of <strong style="font-weight: 700">expertise</strong></h2>
