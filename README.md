@@ -1,7 +1,8 @@
 # Parvez Alam — Creative Professional Portfolio
 
 > Graphic Designer, Video Editor & Actor · Dhaka, Bangladesh  
-> Live Production: Static Single-Page Application (Zero Build Step)
+> Live Production: Static Single-Page Application (Zero Build Step)  
+> Live URL: [https://portfolio-parvez-alam.vercel.app](https://portfolio-parvez-alam.vercel.app)
 
 ---
 
@@ -24,7 +25,8 @@ Portfolio-Complete/
 ├── assets/                       # Curated media assets (WebP, JPG, PNG)
 │   ├── profile.png               # High-res cutout hero portrait
 │   ├── meta-*.jpg                # Production Meta Ads & video thumbnails
-│   └── facebook-reel-*.jpg/png   # Social reel covers
+│   ├── facebook-reel-*.jpg/png   # Social reel covers
+│   └── yt-*.jpg                  # High-res YouTube short film covers
 ├── vendor/
 │   ├── react.js                  # React 18 production UMD runtime
 │   └── react-dom.js              # ReactDOM 18 production UMD runtime
@@ -39,7 +41,7 @@ Portfolio-Complete/
 ## 3. Site Sections & Sitemap
 
 1. **Header & Navigation (`#top`):**
-   - Sticky blur bar with active section indicator, subline branding, and mobile horizontal swipe-nav.
+   - Sticky blur bar with active section indicator, subline branding, and mobile horizontal swipe-nav (`About`, `Experience`, `Skills`, `Work`, `Acting`, `Contact`).
 2. **Hero Section (`#hero`):**
    - Dynamic 120 FPS cursor spotlight, radial dot grid, dual-weight headline, CTA buttons, and optically centered portrait cutout with baseline clipping.
 3. **About (`#about`):**
@@ -53,7 +55,17 @@ Portfolio-Complete/
    - **Analyzed Meta Ads:** High-converting creative campaigns with real ad copy titles.
    - **Motion Graphics & Brand Identity:** Comprehensive creative portfolio.
 7. **Acting & Screen Appearances (`#acting`):**
-   - Dedicated on-camera performance showcase with widescreen 16:9 cinema cards.
+   - Dedicated on-camera performance showcase with 9 cinematic short films:
+     1. **Sesh Elan (শেষ এলান):** Heart-touching Islamic short film on repentance and mortality (`NvNa5-fmFVc`)
+     2. **Paner Khili (পানের খিলি):** Islamic narrative on sincerity and moral reflection (`wnLosVXNv8I`)
+     3. **Bhulpoth (ভুলপথ):** High-impact anti-drug drama on youth vulnerability and redemption (`FD3aJHN1_6I`)
+     4. **Kormofol (কর্মফল):** Moral drama exploring divine justice and consequences (`3qyUTCs7pKM`)
+     5. **AshaVorosha (আশাভরসা):** Lampost Film Production narrative drama on endurance (`hBKBArA09es`)
+     6. **Joutuk 2 (যৌতুক ২):** Hard-hitting social drama confronting dowry exploitation (`2nENNNmSPyg`)
+     7. **Songram (সংগ্রাম):** Victory Day special honoring liberation and national pride (`I-pJAsolvqs`)
+     8. **Abhiman (অভিমান):** Friendship drama exploring brotherhood and loyalty (`AfxdIF7e9mg`)
+     9. **Chintai (ছিনতাই):** Eid special action crime short film on urban courage (`qLaJjZwkgLY`)
+   - Each card features one-click inline YouTube playback with fallback direct links to YouTube.
 8. **Expertise (`#expertise`):**
    - Core disciplines breakdown and Behance showcase link.
 9. **Contact (`#contact`):**
@@ -83,3 +95,4 @@ Open [http://localhost:8000](http://localhost:8000) in your browser.
 - **Framework Preset:** `Other`
 - **Build Command:** *(Leave empty)*
 - **Output Directory:** *(Leave empty)*
+- **Production Branch:** `main`
