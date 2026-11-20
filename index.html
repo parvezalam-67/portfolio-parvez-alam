@@ -1231,9 +1231,9 @@ initSmoothLight() {
     const dy = targetY - currentY;
     const dop = targetOpacity - currentOpacity;
 
-    currentX += dx * 0.12;
-    currentY += dy * 0.12;
-    currentOpacity += dop * 0.10;
+    currentX += dx * 0.05;
+    currentY += dy * 0.05;
+    currentOpacity += dop * 0.06;
 
     render(currentX, currentY, currentOpacity);
 
