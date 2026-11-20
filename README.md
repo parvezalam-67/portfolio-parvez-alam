@@ -51,7 +51,7 @@ Portfolio-Complete/
 5. **Skills & Tools (`#skills`):**
    - Interactive software tiles (Photoshop, Illustrator, Premiere Pro, After Effects, Blender, AI tools).
 6. **Selected Work (`#work`):**
-   - **Featured Videos on Top:** 13 video projects (6 Commercial Video Ads with direct in-place playback + 7 Social Reels).
+   - **Featured Videos on Top:** 14 video projects (7 Commercial Video Ads with direct in-place playback + 7 Social Reels).
    - **Analyzed Meta Ads:** High-converting creative campaigns with real ad copy titles.
    - **Motion Graphics & Brand Identity:** Comprehensive creative portfolio.
 7. **Acting & Screen Appearances (`#acting`):**
