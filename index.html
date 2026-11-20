@@ -1231,8 +1231,8 @@ initSmoothLight() {
     const dy = targetY - currentY;
     const dop = targetOpacity - currentOpacity;
 
-    currentX += dx * 0.28;
-    currentY += dy * 0.28;
+    currentX += dx * 0.08;
+    currentY += dy * 0.08;
     currentOpacity += dop * 0.18;
 
     render(currentX, currentY, currentOpacity);
@@ -1266,7 +1266,10 @@ initSmoothLight() {
   hero.addEventListener('mousemove', (e) => onPointer(e.clientX, e.clientY), { passive: true });
   hero.addEventListener('mouseenter', (e) => onPointer(e.clientX, e.clientY), { passive: true });
   hero.addEventListener('mouseleave', () => {
-    targetOpacity = 0;
+    const p = getRestPos();
+    targetX = p.x;
+    targetY = p.y;
+    targetOpacity = 1;
     wake();
   }, { passive: true });
 
