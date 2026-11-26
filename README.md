@@ -41,20 +41,22 @@ Portfolio-Complete/
 ## 3. Site Sections & Sitemap
 
 1. **Header & Navigation (`#top`):**
-   - Sticky blur bar with active section indicator, subline branding, and mobile horizontal swipe-nav (`About`, `Experience`, `Skills`, `Work`, `Acting`, `Contact`).
+   - Sticky blur bar with active section indicator, subline branding, and mobile horizontal swipe-nav (`Featured`, `About`, `Experience`, `Skills`, `Work`, `Acting`, `Contact`).
 2. **Hero Section (`#hero`):**
    - Dynamic 120 FPS cursor spotlight, radial dot grid, dual-weight headline, CTA buttons, and optically centered portrait cutout with baseline clipping.
-3. **About (`#about`):**
+3. **Featured Releases (`#featured`):**
+   - Editorial showcase intro paired with a 3-video spotlight stage featuring an enlarged muted autoplay loop (`trade2sync` Journal UI) flanked by click-to-play releases (`3D Mascot Boardroom` & `"One Less Channel"`).
+4. **About (`#about`):**
    - Narrative bio, education, languages (IELTS 6.00), and personal interests.
-4. **Experience (`#experience`):**
+5. **Experience (`#experience`):**
    - Career timeline at Doin.Tech and Strivenith Ventures (CSM Bangladesh).
-5. **Skills & Tools (`#skills`):**
+6. **Skills & Tools (`#skills`):**
    - Interactive software tiles (Photoshop, Illustrator, Premiere Pro, After Effects, Blender, AI tools).
-6. **Selected Work (`#work`):**
+7. **Selected Work (`#work`):**
    - **Featured Videos on Top:** 15 video projects (8 Commercial Video Ads with direct in-place playback + 7 Social Reels).
    - **Analyzed Meta Ads & Web Banners:** High-converting creative campaigns, TradingView automation banners, and mobile app launch designs.
    - **Motion Graphics & Brand Identity:** Comprehensive creative portfolio.
-7. **Acting & Screen Appearances (`#acting`):**
+8. **Acting & Screen Appearances (`#acting`):**
    - Dedicated on-camera performance showcase with 9 cinematic short films:
      1. **Sesh Elan (শেষ এলান):** Heart-touching Islamic short film on repentance and mortality (`NvNa5-fmFVc`)
      2. **Paner Khili (পানের খিলি):** Islamic narrative on sincerity and moral reflection (`wnLosVXNv8I`)
@@ -66,9 +68,9 @@ Portfolio-Complete/
      8. **Abhiman (অভিমান):** Friendship drama exploring brotherhood and loyalty (`AfxdIF7e9mg`)
      9. **Chintai (ছিনতাই):** Eid special action crime short film on urban courage (`qLaJjZwkgLY`)
    - Each card features one-click inline YouTube playback with fallback direct links to YouTube.
-8. **Expertise (`#expertise`):**
+9. **Expertise (`#expertise`):**
    - Core disciplines breakdown and Behance showcase link.
-9. **Contact (`#contact`):**
+10. **Contact (`#contact`):**
    - Direct email, phone, location, and social links.
 
 ---

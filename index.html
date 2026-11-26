@@ -93,12 +93,35 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.rise,.rise-2,.rise-3{animation:none}}
 
+/* FEATURED STAGE */
+.featured-inner{max-width:1200px;margin:0 auto;padding:88px 24px 96px;box-sizing:border-box}
+.featured-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 48px}
+.featured-head>div{flex:1 1 520px;min-width:0;max-width:100%}
+.featured-kicker{margin:0 0 20px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.featured-h2{margin:0;max-width:720px;font-size:clamp(30px,4.2vw,54px);font-weight:300;line-height:1.12;letter-spacing:-0.025em;text-wrap:balance}
+.featured-sub{margin:18px 0 0;max-width:560px;font-size:17px;line-height:1.65;color:#9A969A}
+.spot-header{margin-top:48px;padding-top:28px;border-top:1px solid #1E1E24;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px}
+.spot-label{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9A969A}
+.featured-stage{margin-top:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr) minmax(0,1fr);align-items:center;gap:20px}
+.feat-side{position:relative;aspect-ratio:16/9;background:#111114;border:1px solid #2A2A2F;overflow:hidden;cursor:pointer;padding:0;width:100%;display:block;opacity:.88;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,opacity .3s}
+.feat-side:hover{opacity:1;transform:translateY(-4px);border-color:#5A5A62}
+.feat-side img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.feat-side:hover img{transform:scale(1.03)}
+.feat-side:hover .video-play-btn{background:#F2F0EE!important;color:#0B0B0D!important;border-color:#F2F0EE!important;transform:translate(-50%,-50%) scale(1.1)!important}
+.feat-center{position:relative;aspect-ratio:16/9;background:#111114;border:1px solid #3A3A42;overflow:hidden;width:100%;box-shadow:0 24px 64px rgba(0,0,0,0.72),0 0 42px rgba(255,61,94,0.08);transition:border-color .3s,box-shadow .3s}
+.feat-center:hover{border-color:rgba(255,61,94,0.55);box-shadow:0 28px 72px rgba(0,0,0,0.8),0 0 56px rgba(255,61,94,0.14)}
+.feat-center video{display:block;width:100%;height:100%;object-fit:cover}
+
 /* RESPONSIVE DESIGN SYSTEM */
 @media (max-width:1024px){
-.section-inner{padding:72px 20px!important;gap:36px 48px!important}
+.section-inner,.featured-inner{padding:72px 20px!important;gap:36px 48px!important}
 .hero-inner{padding:60px 20px 0!important;gap:36px 48px!important}
 .contact-inner{padding:80px 20px 72px!important}
 .skills-grid{grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr))!important}
+}
+@media (max-width:900px){
+.featured-stage{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.feat-center{grid-column:1/-1;order:-1}
 }
 @media (max-width:640px){
 .site-header{padding:16px 16px 0!important}
@@ -107,7 +130,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 .site-nav::-webkit-scrollbar{display:none}
 .site-nav .nav-link{flex-shrink:0;font-size:14px;min-height:40px!important}
 .header-subline{font-size:11px!important;gap:4px 12px!important;padding-top:10px!important;margin-top:8px!important}
-.section-inner{padding:56px 16px!important;gap:28px!important}
+.section-inner,.featured-inner{padding:56px 16px!important;gap:28px!important}
 .hero-inner{padding:44px 16px 0!important;gap:32px!important}
 .hero-text{padding-bottom:24px!important}
 .photo-wrap{max-width:330px!important;margin:0 auto -70px!important;transform:translateX(14px)!important}
@@ -148,6 +171,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
     <div class="header-main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
       <a href="#top" style="font-size: 15px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; min-height: 44px; display: flex; align-items: center">Parvez Alam</a>
       <nav aria-label="Primary" class="site-nav" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; font-size: 14px">
+        <a class="nav-link" href="#featured" style="min-height: 44px; display: flex; align-items: center">Featured</a>
         <a class="nav-link" href="#about" style="min-height: 44px; display: flex; align-items: center">About</a>
         <a class="nav-link" href="#experience" style="min-height: 44px; display: flex; align-items: center">Experience</a>
         <a class="nav-link" href="#skills" style="min-height: 44px; display: flex; align-items: center">Skills</a>
@@ -193,11 +217,55 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
       </div>
     </section>
 
+    <!-- FEATURED -->
+    <section id="featured" style="border-top: 1px solid #2A2A2F">
+      <div class="featured-inner">
+        <div class="featured-head">
+          <div>
+            <p class="featured-kicker">01 — Featured</p>
+            <h2 class="featured-h2">What I craft to make brands <strong style="font-weight: 700">impossible to scroll past</strong>.</h2>
+            <p class="featured-sub">Combining high-retention video pacing, UI motion, and conversion-focused design for SaaS products, trading brands, and digital campaigns.</p>
+          </div>
+          <a class="nav-link" href="#work" style="border-bottom: 1px solid #3A3A40; min-height: 44px; font-size: 15px; color: #F2F0EE; display: inline-flex; align-items: center; gap: 8px">
+            View full archive (50+ projects)
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+          </a>
+        </div>
+
+        <div class="spot-header">
+          <span class="spot-label">Featured Releases · 2026 Highlights</span>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #6E6A70">Click side videos to play inline</span>
+        </div>
+
+        <div class="featured-stage">
+          <button type="button" class="feat-side" data-video-play="1gzWyRHPxNRXqxutVl8f9R8EEszfnLqeF" aria-label="Play trade2sync 3D Mascot Robot Boardroom Video Ad">
+            <div data-video-slot style="position: relative; width: 100%; height: 100%">
+              <img src="./assets/featured-robot-thumb.jpg" alt="trade2sync 3D Mascot Robot Boardroom Video Ad">
+              <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+            </div>
+          </button>
+
+          <div class="feat-center">
+            <video autoplay muted loop playsinline preload="auto" poster="./assets/meta-video-trade2sync-journal-thumb.jpg" aria-label="trade2sync Journal Feature SaaS UI Video Ad">
+              <source src="./assets/featured-journal-ui.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <button type="button" class="feat-side" data-video-play="1a07n85jJIdqH-I5jvNWt3vs9QeH5p-Yu" aria-label="Play trade2sync Journal One Less Channel Motion Video Ad">
+            <div data-video-slot style="position: relative; width: 100%; height: 100%">
+              <img src="./assets/meta-video-trade2sync-one-less-channel-thumb.jpg" alt="trade2sync Journal One Less Channel Motion Video Ad">
+              <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- ABOUT -->
     <section id="about" style="border-top: 1px solid #2A2A2F">
       <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
-          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">01 — About</p>
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">02 — About</p>
         </div>
         <div style="flex: 3 1 480px; min-width: 0">
           <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance">A creative professional who loves <strong style="font-weight: 700">video editing</strong> and <strong style="font-weight: 700">multimedia design</strong>.</h2>
@@ -233,7 +301,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
     <section id="experience" style="border-top: 1px solid #2A2A2F">
       <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
-          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">02 — Experience</p>
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">03 — Experience</p>
         </div>
         <div style="flex: 3 1 480px; min-width: 0">
           <h2 style="margin: 0 0 56px; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em">Work <strong style="font-weight: 700">experience</strong></h2>
@@ -279,7 +347,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
     <section id="skills" style="border-top: 1px solid #2A2A2F">
       <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
-          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">03 — Skills</p>
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">04 — Skills</p>
         </div>
         <div style="flex: 3 1 480px; min-width: 0">
           <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em">The <strong style="font-weight: 700">toolkit</strong></h2>
@@ -333,7 +401,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
       <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box">
         <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px">
           <div style="flex: 1 1 420px; min-width: 0">
-            <p style="margin: 0 0 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">04 — Work</p>
+            <p style="margin: 0 0 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">05 — Work</p>
             <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em">Selected <strong style="font-weight: 700">work</strong></h2>
           </div>
           <a class="nav-link" href="https://www.behance.net/parvezalam_" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; border-bottom: 1px solid #3A3A40">
@@ -961,12 +1029,12 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
     </section>
 
         <!-- ========================================== -->
-    <!-- 05. ACTING & SCREEN APPEARANCES SECTION    -->
+    <!-- 06. ACTING & SCREEN APPEARANCES SECTION    -->
     <!-- ========================================== -->
     <section id="acting" style="border-top: 1px solid #2A2A2F">
       <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
-          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">05 — Acting</p>
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">06 — Acting</p>
         </div>
         <div style="flex: 3 1 480px; min-width: 0">
           <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px">
@@ -1167,7 +1235,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
     <section id="expertise" style="border-top: 1px solid #2A2A2F">
       <div class="section-inner" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 80px">
         <div style="flex: 1 1 260px; min-width: 0">
-          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">06 — Expertise</p>
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">07 — Expertise</p>
         </div>
         <div style="flex: 3 1 480px; min-width: 0">
           <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 54px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance">Areas of <strong style="font-weight: 700">expertise</strong></h2>
@@ -1194,7 +1262,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
     <!-- CONTACT -->
     <section id="contact" style="border-top: 1px solid #2A2A2F">
       <div class="contact-inner" style="max-width: 1200px; margin: 0 auto; padding: 112px 24px 96px; box-sizing: border-box">
-        <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">07 — Contact</p>
+        <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent)">08 — Contact</p>
         <h2 style="margin: 24px 0 0; max-width: 900px; font-size: clamp(36px, 6vw, 84px); font-weight: 300; line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance">Let’s make something that <strong style="font-weight: 800">sticks</strong>.</h2>
         <a class="contact-link" href="mailto:parvez.csmbd@gmail.com" style="margin-top: 48px; display: inline-block; font-size: clamp(22px, 3.6vw, 44px); font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere; border-bottom: 2px solid var(--accent); padding-bottom: 6px">parvez.csmbd@gmail.com</a>
 
