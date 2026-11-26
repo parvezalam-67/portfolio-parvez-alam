@@ -1794,11 +1794,21 @@ renderVals() {
     }
   } catch (_) {}
 
-  ['click', 'pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+  ['click', 'pointerdown', 'keydown', 'touchstart', 'touchend'].forEach(function (ev) {
     window.addEventListener(ev, function (e) {
       if (!soundOn || audioUnlocked) return;
       if (e.target && e.target.closest && e.target.closest('#sound-toggle-btn')) return;
       ensureCtx();
+      if (ctx) {
+        // Silent 1-sample prime required by older/strict iOS Safari WebKit versions
+        try {
+          var sb = ctx.createBuffer(1, 1, 22050);
+          var ss = ctx.createBufferSource();
+          ss.buffer = sb;
+          ss.connect(ctx.destination);
+          ss.start(0);
+        } catch (_) {}
+      }
       if (ctx && ctx.state === 'suspended') {
         ctx.resume().then(function () {
           audioUnlocked = true;
