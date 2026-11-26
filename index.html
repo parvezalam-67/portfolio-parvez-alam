@@ -106,9 +106,9 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 .feat-side{position:relative;background:none;border:0;cursor:pointer;padding:0;margin:0;width:100%;display:block;text-align:left;color:inherit;opacity:.88;transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .3s}
 .feat-side [data-video-slot]{position:relative;width:100%;aspect-ratio:16/9;box-sizing:border-box;background:#111114;border:1px solid #2A2A2F;overflow:hidden;transition:border-color .3s}
 .feat-side:hover{opacity:1;transform:translateY(-4px)}
-.feat-side:has(iframe){opacity:1;transform:none!important;cursor:default}
+.feat-side:has(iframe),.feat-side:has(video){opacity:1;transform:none!important;cursor:default}
 .feat-side:focus:not(:focus-visible){outline:none}
-.feat-side:hover [data-video-slot],.feat-side:has(iframe) [data-video-slot]{border-color:#5A5A62}
+.feat-side:hover [data-video-slot],.feat-side:has(iframe) [data-video-slot],.feat-side:has(video) [data-video-slot]{border-color:#5A5A62}
 .feat-side img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 .feat-side:hover img{transform:scale(1.03)}
 .feat-side:hover .video-play-btn{background:#F2F0EE!important;color:#0B0B0D!important;border-color:#F2F0EE!important;transform:translate(-50%,-50%) scale(1.1)!important}
@@ -242,7 +242,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
         </div>
 
         <div class="featured-stage">
-          <button type="button" class="feat-side" data-video-play="1gzWyRHPxNRXqxutVl8f9R8EEszfnLqeF" aria-label="Play trade2sync 3D Mascot Robot Boardroom Video Ad">
+          <button type="button" class="feat-side" data-video-play="1gzWyRHPxNRXqxutVl8f9R8EEszfnLqeF" data-video-src="./assets/featured-robot.mp4" aria-label="Play trade2sync 3D Mascot Robot Boardroom Video Ad">
             <div data-video-slot>
               <img src="./assets/featured-robot-thumb.jpg" alt="trade2sync 3D Mascot Robot Boardroom Video Ad">
               <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
@@ -255,7 +255,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
             </video>
           </div>
 
-          <button type="button" class="feat-side" data-video-play="1a07n85jJIdqH-I5jvNWt3vs9QeH5p-Yu" aria-label="Play trade2sync Journal One Less Channel Motion Video Ad">
+          <button type="button" class="feat-side" data-video-play="1a07n85jJIdqH-I5jvNWt3vs9QeH5p-Yu" data-video-src="./assets/featured-one-less-channel.mp4" aria-label="Play trade2sync Journal One Less Channel Motion Video Ad">
             <div data-video-slot>
               <img src="./assets/meta-video-trade2sync-one-less-channel-thumb.jpg" alt="trade2sync Journal One Less Channel Motion Video Ad">
               <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
@@ -1469,20 +1469,32 @@ document.addEventListener('click', function (e) {
   var btn = e.target.closest && (e.target.closest('[data-video-play]') || (e.target.closest('figure') && e.target.closest('figure').querySelector('[data-video-play]')));
   if (!btn) return;
   var slot = btn.querySelector('[data-video-slot]');
-  if (!slot || slot.querySelector('iframe')) return;
-  var videoId = btn.getAttribute('data-video-play');
-  var videoType = btn.getAttribute('data-video-type') || 'gdrive';
-  var frame = document.createElement('iframe');
-  if (videoType === 'youtube') {
-    frame.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+  if (!slot || slot.querySelector('iframe') || slot.querySelector('video')) return;
+  var localSrc = btn.getAttribute('data-video-src');
+  if (localSrc) {
+    var vid = document.createElement('video');
+    vid.src = localSrc;
+    vid.controls = true;
+    vid.autoplay = true;
+    vid.playsInline = true;
+    vid.setAttribute('style', 'position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block');
+    slot.appendChild(vid);
+    vid.play().catch(function(){});
   } else {
-    frame.src = 'https://drive.google.com/file/d/' + videoId + '/preview?autoplay=1';
+    var videoId = btn.getAttribute('data-video-play');
+    var videoType = btn.getAttribute('data-video-type') || 'gdrive';
+    var frame = document.createElement('iframe');
+    if (videoType === 'youtube') {
+      frame.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+    } else {
+      frame.src = 'https://drive.google.com/file/d/' + videoId + '/preview?autoplay=1';
+    }
+    frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen';
+    frame.allowFullscreen = true;
+    frame.title = btn.getAttribute('aria-label') || 'Video player';
+    frame.setAttribute('style', 'position:absolute;inset:0;width:100%;height:100%;border:0');
+    slot.appendChild(frame);
   }
-  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen';
-  frame.allowFullscreen = true;
-  frame.title = btn.getAttribute('aria-label') || 'Video player';
-  frame.setAttribute('style', 'position:absolute;inset:0;width:100%;height:100%;border:0');
-  slot.appendChild(frame);
   var img = slot.querySelector('img');
   if (img) img.style.display = 'none';
   var icons = slot.querySelectorAll('.video-play-btn, span');
