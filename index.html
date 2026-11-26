@@ -103,9 +103,13 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 .spot-header{margin-top:48px;padding-top:28px;border-top:1px solid #1E1E24;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px}
 .spot-label{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9A969A}
 .featured-stage{margin-top:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr) minmax(0,1fr);align-items:center;gap:20px}
-.feat-side{position:relative;aspect-ratio:16/9;background:#111114;border:1px solid #2A2A2F;overflow:hidden;cursor:pointer;padding:0;width:100%;display:block;opacity:.88;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,opacity .3s}
-.feat-side:hover{opacity:1;transform:translateY(-4px);border-color:#5A5A62}
-.feat-side img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.feat-side{position:relative;background:none;border:0;cursor:pointer;padding:0;margin:0;width:100%;display:block;text-align:left;color:inherit;opacity:.88;transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .3s}
+.feat-side [data-video-slot]{position:relative;width:100%;aspect-ratio:16/9;box-sizing:border-box;background:#111114;border:1px solid #2A2A2F;overflow:hidden;transition:border-color .3s}
+.feat-side:hover{opacity:1;transform:translateY(-4px)}
+.feat-side:has(iframe){opacity:1;transform:none!important;cursor:default}
+.feat-side:focus:not(:focus-visible){outline:none}
+.feat-side:hover [data-video-slot],.feat-side:has(iframe) [data-video-slot]{border-color:#5A5A62}
+.feat-side img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 .feat-side:hover img{transform:scale(1.03)}
 .feat-side:hover .video-play-btn{background:#F2F0EE!important;color:#0B0B0D!important;border-color:#F2F0EE!important;transform:translate(-50%,-50%) scale(1.1)!important}
 .feat-center{position:relative;aspect-ratio:16/9;background:#111114;border:1px solid #3A3A42;overflow:hidden;width:100%;box-shadow:0 24px 64px rgba(0,0,0,0.72),0 0 42px rgba(255,61,94,0.08);transition:border-color .3s,box-shadow .3s}
@@ -239,7 +243,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 
         <div class="featured-stage">
           <button type="button" class="feat-side" data-video-play="1gzWyRHPxNRXqxutVl8f9R8EEszfnLqeF" aria-label="Play trade2sync 3D Mascot Robot Boardroom Video Ad">
-            <div data-video-slot style="position: relative; width: 100%; height: 100%">
+            <div data-video-slot>
               <img src="./assets/featured-robot-thumb.jpg" alt="trade2sync 3D Mascot Robot Boardroom Video Ad">
               <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
             </div>
@@ -252,7 +256,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
           </div>
 
           <button type="button" class="feat-side" data-video-play="1a07n85jJIdqH-I5jvNWt3vs9QeH5p-Yu" aria-label="Play trade2sync Journal One Less Channel Motion Video Ad">
-            <div data-video-slot style="position: relative; width: 100%; height: 100%">
+            <div data-video-slot>
               <img src="./assets/meta-video-trade2sync-one-less-channel-thumb.jpg" alt="trade2sync Journal One Less Channel Motion Video Ad">
               <span class="video-play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
             </div>
