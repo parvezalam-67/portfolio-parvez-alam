@@ -1534,6 +1534,7 @@ renderVals() {
   var ctx = null, noiseBuf = null, reverbNode = null, whooshBus = null, bgmMaster = null;
   var bgmTimer = null, bgmStarted = false, bgmStep = 0;
   var soundOn = true;
+  var audioUnlocked = false;
   var toggleBtn = document.getElementById('sound-toggle-btn');
   var labelEl = document.getElementById('sound-label');
   var lastHoverTime = 0, lastScrollY = window.scrollY, lastWhooshTime = 0;
@@ -1542,9 +1543,20 @@ renderVals() {
   function ensureCtx() {
     if (!ctx) {
       var AC = window.AudioContext || window.webkitAudioContext;
-      if (AC) ctx = new AC();
+      if (AC) {
+        ctx = new AC();
+        ctx.onstatechange = function () {
+          if (ctx.state === 'running') {
+            audioUnlocked = true;
+            if (soundOn) startAmbientIfReady();
+          }
+        };
+      }
     }
-    if (ctx && ctx.state === 'suspended') ctx.resume();
+    if (ctx && ctx.state === 'suspended') {
+      try { ctx.resume(); } catch (_) {}
+    }
+    if (ctx && ctx.state === 'running') audioUnlocked = true;
     if (ctx && !noiseBuf) {
       var len = Math.floor(ctx.sampleRate * 2.2);
       noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
@@ -1734,7 +1746,7 @@ renderVals() {
     }
   }
 
-  function setSound(next) {
+  function setSound(next, playChime) {
     soundOn = next;
     toggleBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
     labelEl.textContent = soundOn ? 'SOUND: ON' : 'SOUND: OFF';
@@ -1743,7 +1755,7 @@ renderVals() {
     if (soundOn) {
       ensureCtx();
       if (bgmMaster && ctx) bgmMaster.gain.setTargetAtTime(0.48, ctx.currentTime, 0.15);
-      SFX.powerOn();
+      if (playChime !== false) SFX.powerOn();
       bgmStep = 0;
       startAmbientIfReady();
     } else {
@@ -1754,7 +1766,19 @@ renderVals() {
 
   toggleBtn.addEventListener('click', function (e) {
     e.stopPropagation();
-    setSound(!soundOn);
+    // If browser had suspended AudioContext until this click, keep Sound ON and unlock instead of muting!
+    if (soundOn && !audioUnlocked) {
+      ensureCtx();
+      if (ctx && ctx.resume) {
+        ctx.resume().then(function () {
+          audioUnlocked = true;
+          setSound(true, true);
+        }).catch(function () {});
+      }
+      setSound(true, true);
+      return;
+    }
+    setSound(!soundOn, true);
   });
 
   window.__onPortfolioVideoPlay = function () {
@@ -1764,19 +1788,27 @@ renderVals() {
 
   try {
     ensureCtx();
-    if (ctx && ctx.state === 'running') startAmbientIfReady();
+    if (ctx && ctx.state === 'running') {
+      audioUnlocked = true;
+      startAmbientIfReady();
+    }
   } catch (_) {}
 
-  ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
-    window.addEventListener(ev, function () {
-      if (!soundOn) return;
+  ['click', 'pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+    window.addEventListener(ev, function (e) {
+      if (!soundOn || audioUnlocked) return;
+      if (e.target && e.target.closest && e.target.closest('#sound-toggle-btn')) return;
       ensureCtx();
       if (ctx && ctx.state === 'suspended') {
-        ctx.resume().then(startAmbientIfReady).catch(function () {});
-      } else {
+        ctx.resume().then(function () {
+          audioUnlocked = true;
+          if (soundOn) startAmbientIfReady();
+        }).catch(function () {});
+      } else if (ctx && ctx.state === 'running') {
+        audioUnlocked = true;
         startAmbientIfReady();
       }
-    }, { passive: true });
+    }, { capture: true, passive: true });
   });
 
   window.addEventListener('scroll', function () {
