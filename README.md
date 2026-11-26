@@ -41,7 +41,7 @@ Portfolio-Complete/
 ## 3. Site Sections & Sitemap
 
 1. **Header & Navigation (`#top`):**
-   - Sticky blur bar with active section indicator, subline branding, and mobile horizontal swipe-nav (`Featured`, `About`, `Experience`, `Skills`, `Work`, `Acting`, `Contact`).
+   - Sticky blur bar with active section indicator, subline branding, and mobile horizontal swipe-nav (`Featured`, `About`, `Experience`, `Skills`, `Work`, `Acting`, `Contact`), paired with an always-visible bottom-right **`SOUND: ON / OFF`** floating Web Audio studio toggle (synthesizing UI SFX, slow lo-fi scroll whooshes, and a generative Felt Piano backdrop with 0 KB external audio assets).
 2. **Hero Section (`#hero`):**
    - Dynamic 120 FPS cursor spotlight, radial dot grid, dual-weight headline, CTA buttons, and optically centered portrait cutout with baseline clipping.
 3. **Featured Releases (`#featured`):**

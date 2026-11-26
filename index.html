@@ -116,6 +116,18 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 .feat-center:hover{border-color:rgba(255,61,94,0.55);box-shadow:0 28px 72px rgba(0,0,0,0.8),0 0 56px rgba(255,61,94,0.14)}
 .feat-center video{display:block;width:100%;height:100%;object-fit:cover}
 
+/* ALWAYS-ON-SCREEN SOUND CONTROL PILL */
+.sound-fab{position:fixed;right:24px;bottom:24px;z-index:200;display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 16px;background:rgba(17,17,20,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid #2A2A2F;color:#9A969A;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 32px rgba(0,0,0,0.65);transition:border-color .25s,color .25s,background .25s,box-shadow .25s,transform .2s}
+.sound-fab:hover{border-color:#5A5A62;color:#F2F0EE;transform:translateY(-2px)}
+.sound-fab:focus-visible{outline:2px solid #F2F0EE;outline-offset:3px}
+.sound-fab[aria-pressed="true"]{border-color:rgba(255,61,94,0.65);color:#F2F0EE;background:rgba(17,17,20,0.92);box-shadow:0 12px 32px rgba(0,0,0,0.7),0 0 22px rgba(255,61,94,0.22)}
+.sfx-bars{display:inline-flex;align-items:flex-end;gap:2px;height:12px;width:13px}
+.sfx-bars span{display:block;width:2.5px;height:3px;background:currentColor;transition:height .2s}
+.sound-fab[aria-pressed="true"] .sfx-bars span{background:var(--accent);animation:eqBar .9s ease-in-out infinite alternate}
+.sound-fab[aria-pressed="true"] .sfx-bars span:nth-child(2){animation-delay:.25s}
+.sound-fab[aria-pressed="true"] .sfx-bars span:nth-child(3){animation-delay:.5s}
+@keyframes eqBar{0%{height:3px}100%{height:12px}}
+
 /* RESPONSIVE DESIGN SYSTEM */
 @media (max-width:1024px){
 .section-inner,.featured-inner{padding:72px 20px!important;gap:36px 48px!important}
@@ -164,6 +176,7 @@ figure:hover .video-play-btn svg{transform:scale(1.06)}
 .contact-inner .contact-link{font-size:clamp(18px,5.2vw,28px)!important;margin-top:28px!important}
 .contact-meta-grid{margin-top:40px!important;padding-top:24px!important;grid-template-columns:1fr!important;gap:24px!important}
 .footer-inner{padding:24px 16px 36px!important;flex-direction:column!important;align-items:flex-start!important;gap:14px!important}
+.sound-fab{right:16px!important;bottom:16px!important;height:38px!important;padding:0 14px!important}
 }
 </style>
 </helmet>
@@ -1506,6 +1519,305 @@ renderVals() {
     if (img) img.style.display = 'none';
     var icons = slot.querySelectorAll('.video-play-btn, span');
     icons.forEach(function (icon) { icon.style.display = 'none'; });
+    if (window.__onPortfolioVideoPlay) window.__onPortfolioVideoPlay();
+  });
+})();
+</script>
+
+<button type="button" id="sound-toggle-btn" class="sound-fab" aria-pressed="true" aria-label="Toggle portfolio sound design and ambient piano">
+  <span class="sfx-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+  <span id="sound-label">SOUND: ON</span>
+</button>
+
+<script>
+(function () {
+  var ctx = null, noiseBuf = null, reverbNode = null, whooshBus = null, bgmMaster = null;
+  var bgmTimer = null, bgmStarted = false, bgmStep = 0;
+  var soundOn = true;
+  var toggleBtn = document.getElementById('sound-toggle-btn');
+  var labelEl = document.getElementById('sound-label');
+  var lastHoverTime = 0, lastScrollY = window.scrollY, lastWhooshTime = 0;
+  var gScale = 1.65;
+
+  function ensureCtx() {
+    if (!ctx) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) ctx = new AC();
+    }
+    if (ctx && ctx.state === 'suspended') ctx.resume();
+    if (ctx && !noiseBuf) {
+      var len = Math.floor(ctx.sampleRate * 2.2);
+      noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+      var out = noiseBuf.getChannelData(0), b0 = 0, b1 = 0, b2 = 0, maxV = 0.001;
+      for (var i = 0; i < len; i++) {
+        var w = Math.random() * 2 - 1;
+        b0 = 0.997 * b0 + w * 0.04;
+        b1 = 0.985 * b1 + w * 0.05;
+        b2 = 0.950 * b2 + w * 0.07;
+        out[i] = b0 + b1 + b2 + w * 0.22;
+        if (Math.abs(out[i]) > maxV) maxV = Math.abs(out[i]);
+      }
+      for (var k = 0; k < len; k++) out[k] = (out[k] / maxV) * 0.9;
+    }
+    if (ctx && !reverbNode) {
+      var irLen = Math.floor(ctx.sampleRate * 3.0);
+      var ir = ctx.createBuffer(2, irLen, ctx.sampleRate);
+      for (var ch = 0; ch < 2; ch++) {
+        var d = ir.getChannelData(ch);
+        for (var j = 0; j < irLen; j++) d[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / irLen, 2.5) * 0.35;
+      }
+      reverbNode = ctx.createConvolver();
+      reverbNode.buffer = ir;
+      bgmMaster = ctx.createGain();
+      bgmMaster.gain.value = 0.48;
+      var dry = ctx.createGain(); dry.gain.value = 0.52;
+      var wet = ctx.createGain(); wet.gain.value = 0.48;
+      bgmMaster.connect(dry).connect(ctx.destination);
+      bgmMaster.connect(reverbNode).connect(wet).connect(ctx.destination);
+    }
+    if (ctx && !whooshBus) {
+      whooshBus = ctx.createGain();
+      whooshBus.gain.value = 1.0;
+      var wDry = ctx.createGain(); wDry.gain.value = 0.80;
+      var wVerbLpf = ctx.createBiquadFilter(); wVerbLpf.type = 'lowpass'; wVerbLpf.frequency.value = 360;
+      var wVerbSend = ctx.createGain(); wVerbSend.gain.value = 0.82;
+      whooshBus.connect(wDry).connect(ctx.destination);
+      whooshBus.connect(wVerbLpf).connect(wVerbSend).connect(reverbNode);
+    }
+    return ctx;
+  }
+
+  var SFX = {
+    powerOn: function () {
+      var c = ensureCtx(); if (!c) return;
+      var t = c.currentTime;
+      [523.25, 783.99].forEach(function (freq, idx) {
+        var o = c.createOscillator(), amp = c.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(freq, t + idx * 0.055);
+        amp.gain.setValueAtTime(0.0001, t + idx * 0.055);
+        amp.gain.exponentialRampToValueAtTime(0.055 * gScale, t + idx * 0.055 + 0.01);
+        amp.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.055 + 0.22);
+        o.connect(amp).connect(c.destination);
+        o.start(t + idx * 0.055);
+        o.stop(t + idx * 0.055 + 0.24);
+      });
+    },
+    powerOff: function () {
+      var c = ensureCtx(); if (!c) return;
+      var t = c.currentTime, o = c.createOscillator(), amp = c.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(240, t); o.frequency.exponentialRampToValueAtTime(85, t + 0.1);
+      amp.gain.setValueAtTime(0.055, t); amp.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+      o.connect(amp).connect(c.destination); o.start(t); o.stop(t + 0.12);
+    },
+    navTick: function () {
+      if (!soundOn) return;
+      var now = performance.now(); if (now - lastHoverTime < 45) return; lastHoverTime = now;
+      var c = ensureCtx(); if (!c) return;
+      var t = c.currentTime, o = c.createOscillator(), f = c.createBiquadFilter(), amp = c.createGain();
+      o.type = 'triangle'; o.frequency.setValueAtTime(2400, t); o.frequency.exponentialRampToValueAtTime(950, t + 0.02);
+      f.type = 'bandpass'; f.frequency.value = 1800; f.Q.value = 1.5;
+      amp.gain.setValueAtTime(0.035 * gScale, t); amp.gain.exponentialRampToValueAtTime(0.0001, t + 0.024);
+      o.connect(f).connect(amp).connect(c.destination); o.start(t); o.stop(t + 0.028);
+    },
+    tileNote: function (step) {
+      if (!soundOn) return;
+      var now = performance.now(); if (now - lastHoverTime < 40) return; lastHoverTime = now;
+      var c = ensureCtx(); if (!c) return;
+      var notes = [293.66, 349.23, 392.00, 440.00, 523.25, 587.33, 698.46];
+      var t = c.currentTime, o = c.createOscillator(), amp = c.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(notes[step % notes.length], t);
+      amp.gain.setValueAtTime(0.0001, t);
+      amp.gain.exponentialRampToValueAtTime(0.044 * gScale, t + 0.008);
+      amp.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+      o.connect(amp).connect(c.destination); o.start(t); o.stop(t + 0.18);
+    },
+    ctaHover: function () {
+      if (!soundOn) return;
+      var now = performance.now(); if (now - lastHoverTime < 60) return; lastHoverTime = now;
+      var c = ensureCtx(); if (!c) return;
+      var t = c.currentTime, o = c.createOscillator(), amp = c.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(145, t); o.frequency.exponentialRampToValueAtTime(72, t + 0.06);
+      amp.gain.setValueAtTime(0.048 * gScale, t); amp.gain.exponentialRampToValueAtTime(0.0001, t + 0.065);
+      o.connect(amp).connect(c.destination); o.start(t); o.stop(t + 0.07);
+    },
+    filterSnap: function () {
+      if (!soundOn) return;
+      var c = ensureCtx(); if (!c || !noiseBuf) return;
+      var t = c.currentTime, src = c.createBufferSource(), bp = c.createBiquadFilter(), amp = c.createGain();
+      src.buffer = noiseBuf; bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = 1.4;
+      amp.gain.setValueAtTime(0.09 * gScale, t); amp.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+      src.connect(bp).connect(amp).connect(c.destination); src.start(t, 0, 0.035);
+      var o = c.createOscillator(), oAmp = c.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(195, t); o.frequency.exponentialRampToValueAtTime(68, t + 0.05);
+      oAmp.gain.setValueAtTime(0.065 * gScale, t); oAmp.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
+      o.connect(oAmp).connect(c.destination); o.start(t); o.stop(t + 0.06);
+    },
+    scrollWhoosh: function (dirDown) {
+      if (!soundOn) return;
+      var c = ensureCtx(); if (!c || !noiseBuf || !whooshBus) return;
+      var t = c.currentTime, src = c.createBufferSource(), lpf = c.createBiquadFilter(), amp = c.createGain();
+      src.buffer = noiseBuf; lpf.type = 'lowpass'; lpf.Q.value = 2.1;
+      if (dirDown) {
+        lpf.frequency.setValueAtTime(80, t);
+        lpf.frequency.exponentialRampToValueAtTime(350, t + 0.34);
+        lpf.frequency.exponentialRampToValueAtTime(68, t + 1.32);
+      } else {
+        lpf.frequency.setValueAtTime(100, t);
+        lpf.frequency.exponentialRampToValueAtTime(290, t + 0.30);
+        lpf.frequency.exponentialRampToValueAtTime(64, t + 1.25);
+      }
+      amp.gain.setValueAtTime(0.0001, t);
+      amp.gain.linearRampToValueAtTime(0.24 * gScale, t + 0.28);
+      amp.gain.exponentialRampToValueAtTime(0.0001, t + 1.40);
+      src.connect(lpf).connect(amp).connect(whooshBus);
+      src.start(t, Math.random() * 0.4, 1.45);
+      var sub = c.createOscillator(), subLpf = c.createBiquadFilter(), sAmp = c.createGain();
+      sub.type = 'triangle';
+      sub.frequency.setValueAtTime(dirDown ? 64 : 74, t);
+      sub.frequency.exponentialRampToValueAtTime(36, t + 1.1);
+      subLpf.type = 'lowpass'; subLpf.frequency.value = 160;
+      sAmp.gain.setValueAtTime(0.0001, t);
+      sAmp.gain.linearRampToValueAtTime(0.055 * gScale, t + 0.24);
+      sAmp.gain.exponentialRampToValueAtTime(0.0001, t + 1.15);
+      sub.connect(subLpf).connect(sAmp).connect(whooshBus);
+      sub.start(t); sub.stop(t + 1.2);
+    },
+    shutterPlay: function () {
+      if (!soundOn) return;
+      var c = ensureCtx(); if (!c) return;
+      var t = c.currentTime, sub = c.createOscillator(), sAmp = c.createGain();
+      sub.type = 'sine'; sub.frequency.setValueAtTime(115, t); sub.frequency.exponentialRampToValueAtTime(36, t + 0.2);
+      sAmp.gain.setValueAtTime(0.12 * gScale, t); sAmp.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+      sub.connect(sAmp).connect(c.destination); sub.start(t); sub.stop(t + 0.24);
+      var tick = c.createOscillator(), tAmp = c.createGain();
+      tick.type = 'triangle'; tick.frequency.setValueAtTime(3200, t); tick.frequency.exponentialRampToValueAtTime(1100, t + 0.022);
+      tAmp.gain.setValueAtTime(0.045 * gScale, t); tAmp.gain.exponentialRampToValueAtTime(0.0001, t + 0.028);
+      tick.connect(tAmp).connect(c.destination); tick.start(t); tick.stop(t + 0.032);
+    }
+  };
+
+  var PIANO_PHRASES = [
+    { dur: 2400, notes: [[130.81, 0, 0.085], [196.00, 0.18, 0.058], [246.94, 0.55, 0.052], [293.66, 0.95, 0.048], [329.63, 1.45, 0.045]] },
+    { dur: 2400, notes: [[110.00, 0, 0.085], [164.81, 0.2, 0.058], [246.94, 0.6, 0.052], [261.63, 1.05, 0.048], [329.63, 1.55, 0.042]] },
+    { dur: 2400, notes: [[87.31, 0, 0.085], [174.61, 0.18, 0.058], [220.00, 0.55, 0.052], [261.63, 1.0, 0.048], [329.63, 1.5, 0.045]] },
+    { dur: 2400, notes: [[98.00, 0, 0.082], [196.00, 0.2, 0.055], [246.94, 0.55, 0.05], [293.66, 1.05, 0.045], [329.63, 1.65, 0.04]] }
+  ];
+
+  function playFeltNote(freq, delaySec, vol) {
+    var c = ensureCtx(); if (!c || !bgmMaster || !soundOn) return;
+    var t = c.currentTime + delaySec;
+    var o1 = c.createOscillator(), o2 = c.createOscillator(), lpf = c.createBiquadFilter(), env = c.createGain();
+    o1.type = 'triangle'; o1.frequency.setValueAtTime(freq, t);
+    o2.type = 'sine'; o2.frequency.setValueAtTime(freq * 1.0025, t);
+    lpf.type = 'lowpass'; lpf.frequency.setValueAtTime(1400, t); lpf.frequency.exponentialRampToValueAtTime(340, t + 2.1);
+    env.gain.setValueAtTime(0.0001, t); env.gain.linearRampToValueAtTime(vol, t + 0.025); env.gain.exponentialRampToValueAtTime(0.0001, t + 2.6);
+    o1.connect(lpf); o2.connect(lpf); lpf.connect(env).connect(bgmMaster);
+    o1.start(t); o2.start(t); o1.stop(t + 2.7); o2.stop(t + 2.7);
+  }
+
+  function schedulePianoLoop() {
+    if (!soundOn || !ctx || ctx.state !== 'running') { bgmStarted = false; return; }
+    var bar = PIANO_PHRASES[bgmStep % PIANO_PHRASES.length];
+    bar.notes.forEach(function (n) { playFeltNote(n[0], n[1], n[2]); });
+    bgmStep++;
+    bgmTimer = setTimeout(schedulePianoLoop, bar.dur);
+  }
+
+  function startAmbientIfReady() {
+    if (!soundOn) return;
+    var c = ensureCtx(); if (!c) return;
+    if (c.state === 'running' && !bgmStarted) {
+      bgmStarted = true;
+      if (bgmMaster) bgmMaster.gain.setTargetAtTime(0.48, c.currentTime, 0.25);
+      schedulePianoLoop();
+    }
+  }
+
+  function setSound(next) {
+    soundOn = next;
+    toggleBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+    labelEl.textContent = soundOn ? 'SOUND: ON' : 'SOUND: OFF';
+    clearTimeout(bgmTimer);
+    bgmStarted = false;
+    if (soundOn) {
+      ensureCtx();
+      if (bgmMaster && ctx) bgmMaster.gain.setTargetAtTime(0.48, ctx.currentTime, 0.15);
+      SFX.powerOn();
+      bgmStep = 0;
+      startAmbientIfReady();
+    } else {
+      if (bgmMaster && ctx) bgmMaster.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.2);
+      SFX.powerOff();
+    }
+  }
+
+  toggleBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setSound(!soundOn);
+  });
+
+  window.__onPortfolioVideoPlay = function () {
+    SFX.shutterPlay();
+    if (soundOn && bgmMaster && ctx) bgmMaster.gain.setTargetAtTime(0.10, ctx.currentTime, 0.35);
+  };
+
+  try {
+    ensureCtx();
+    if (ctx && ctx.state === 'running') startAmbientIfReady();
+  } catch (_) {}
+
+  ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+    window.addEventListener(ev, function () {
+      if (!soundOn) return;
+      ensureCtx();
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume().then(startAmbientIfReady).catch(function () {});
+      } else {
+        startAmbientIfReady();
+      }
+    }, { passive: true });
+  });
+
+  window.addEventListener('scroll', function () {
+    if (!soundOn) { lastScrollY = window.scrollY; return; }
+    var now = performance.now();
+    var dy = window.scrollY - lastScrollY;
+    lastScrollY = window.scrollY;
+    if (Math.abs(dy) >= 2 && now - lastWhooshTime > 650) {
+      lastWhooshTime = now;
+      SFX.scrollWhoosh(dy >= 0);
+    }
+  }, { passive: true });
+
+  // Event delegation works reliably across both static DOM and <x-dc> mounted elements
+  document.addEventListener('mouseover', function (e) {
+    if (!soundOn || !e.target || !e.target.closest) return;
+    var t = e.target;
+    var tile = t.closest('.skills-grid .tile');
+    if (tile && (!e.relatedTarget || !tile.contains(e.relatedTarget))) {
+      var tiles = Array.prototype.slice.call(document.querySelectorAll('.skills-grid .tile'));
+      var idx = tiles.indexOf(tile);
+      SFX.tileNote(idx >= 0 ? idx : 0);
+      return;
+    }
+    var cta = t.closest('.btn-primary, .btn-ghost, .name-a, .name-b');
+    if (cta && (!e.relatedTarget || !cta.contains(e.relatedTarget))) {
+      SFX.ctaHover();
+      return;
+    }
+    var link = t.closest('.nav-link, .chip, .feat-side, .contact-link');
+    if (link && (!e.relatedTarget || !link.contains(e.relatedTarget))) {
+      SFX.navTick();
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!soundOn || !e.target || !e.target.closest) return;
+    if (e.target.closest('#sound-toggle-btn') || e.target.closest('[data-video-play]')) return;
+    if (e.target.closest('.chip, .btn-primary, .btn-ghost, .tile')) {
+      SFX.filterSnap();
+    }
   });
 })();
 </script>
