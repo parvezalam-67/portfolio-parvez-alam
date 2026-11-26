@@ -1537,7 +1537,7 @@ renderVals() {
   var audioUnlocked = false;
   var toggleBtn = document.getElementById('sound-toggle-btn');
   var labelEl = document.getElementById('sound-label');
-  var lastHoverTime = 0, lastScrollY = window.scrollY, lastWhooshTime = 0;
+  var lastHoverTime = 0, lastScrollY = window.scrollY, scrollActive = false, scrollStopTimer = null, scrollMaxTimer = null, activeWhoosh = null;
   var gScale = 1.65;
 
   function ensureCtx() {
@@ -1665,25 +1665,19 @@ renderVals() {
       oAmp.gain.setValueAtTime(0.065 * gScale, t); oAmp.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
       o.connect(oAmp).connect(c.destination); o.start(t); o.stop(t + 0.06);
     },
-    scrollWhoosh: function (dirDown) {
-      if (!soundOn) return;
+    startScrollWhoosh: function (dirDown) {
+      if (!soundOn || scrollActive) return;
       var c = ensureCtx(); if (!c || !noiseBuf || !whooshBus) return;
+      scrollActive = true;
       var t = c.currentTime, src = c.createBufferSource(), lpf = c.createBiquadFilter(), amp = c.createGain();
-      src.buffer = noiseBuf; lpf.type = 'lowpass'; lpf.Q.value = 2.1;
-      if (dirDown) {
-        lpf.frequency.setValueAtTime(80, t);
-        lpf.frequency.exponentialRampToValueAtTime(350, t + 0.34);
-        lpf.frequency.exponentialRampToValueAtTime(68, t + 1.32);
-      } else {
-        lpf.frequency.setValueAtTime(100, t);
-        lpf.frequency.exponentialRampToValueAtTime(290, t + 0.30);
-        lpf.frequency.exponentialRampToValueAtTime(64, t + 1.25);
-      }
+      src.buffer = noiseBuf; src.loop = true; lpf.type = 'lowpass'; lpf.Q.value = 2.0;
+      lpf.frequency.setValueAtTime(dirDown ? 80 : 100, t);
+      lpf.frequency.exponentialRampToValueAtTime(dirDown ? 350 : 290, t + 0.34);
       amp.gain.setValueAtTime(0.0001, t);
       amp.gain.linearRampToValueAtTime(0.24 * gScale, t + 0.28);
-      amp.gain.exponentialRampToValueAtTime(0.0001, t + 1.40);
       src.connect(lpf).connect(amp).connect(whooshBus);
-      src.start(t, Math.random() * 0.4, 1.45);
+      src.start(t, Math.random() * 0.4);
+
       var sub = c.createOscillator(), subLpf = c.createBiquadFilter(), sAmp = c.createGain();
       sub.type = 'triangle';
       sub.frequency.setValueAtTime(dirDown ? 64 : 74, t);
@@ -1694,6 +1688,28 @@ renderVals() {
       sAmp.gain.exponentialRampToValueAtTime(0.0001, t + 1.15);
       sub.connect(subLpf).connect(sAmp).connect(whooshBus);
       sub.start(t); sub.stop(t + 1.2);
+
+      activeWhoosh = { src: src, lpf: lpf, amp: amp };
+      clearTimeout(scrollMaxTimer);
+      scrollMaxTimer = setTimeout(function () { SFX.endScrollWhoosh(false); }, 2800);
+    },
+    endScrollWhoosh: function (immediate) {
+      clearTimeout(scrollStopTimer);
+      clearTimeout(scrollMaxTimer);
+      scrollActive = false;
+      if (!activeWhoosh || !ctx) return;
+      var w = activeWhoosh; activeWhoosh = null;
+      var t = ctx.currentTime;
+      var dur = immediate ? 0.06 : 0.85;
+      try {
+        w.amp.gain.cancelScheduledValues(t);
+        w.amp.gain.setValueAtTime(Math.max(0.0002, w.amp.gain.value), t);
+        w.amp.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        w.lpf.frequency.cancelScheduledValues(t);
+        w.lpf.frequency.setValueAtTime(Math.max(60, w.lpf.frequency.value), t);
+        w.lpf.frequency.exponentialRampToValueAtTime(64, t + dur);
+        w.src.stop(t + dur + 0.05);
+      } catch (_) {}
     },
     shutterPlay: function () {
       if (!soundOn) return;
@@ -1759,6 +1775,7 @@ renderVals() {
       bgmStep = 0;
       startAmbientIfReady();
     } else {
+      SFX.endScrollWhoosh(true);
       if (bgmMaster && ctx) bgmMaster.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.2);
       SFX.powerOff();
     }
@@ -1823,13 +1840,12 @@ renderVals() {
 
   window.addEventListener('scroll', function () {
     if (!soundOn) { lastScrollY = window.scrollY; return; }
-    var now = performance.now();
     var dy = window.scrollY - lastScrollY;
     lastScrollY = window.scrollY;
-    if (Math.abs(dy) >= 2 && now - lastWhooshTime > 650) {
-      lastWhooshTime = now;
-      SFX.scrollWhoosh(dy >= 0);
-    }
+    if (Math.abs(dy) < 1) return;
+    if (!scrollActive) SFX.startScrollWhoosh(dy >= 0);
+    clearTimeout(scrollStopTimer);
+    scrollStopTimer = setTimeout(function () { SFX.endScrollWhoosh(false); }, 180);
   }, { passive: true });
 
   // Event delegation works reliably across both static DOM and <x-dc> mounted elements
